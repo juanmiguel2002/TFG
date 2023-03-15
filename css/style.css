@@ -1,0 +1,279 @@
+:root {
+  --gris:#f1f1f1;
+  --blanco:white;
+  --blancoRoto:#f2f2f2;
+  --negro:#000000;
+  --colorPrimario:#6f87b6;
+  --grisClaro: #ddd;
+  --colorSecundario:#0026cc;
+  --azulgris:#6C7890;
+  --fuente:'Yanone Kaffeesatz', sans-serif;
+  --fuenteTitulo: 'Archivo', sans-serif;;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body { 
+  background: var(--gris);
+}
+
+h2{
+  font-family: var(--fuenteTitulo);
+}
+h4 {
+  text-align: center;
+  font-size: large;
+}
+.link{
+  text-decoration: none;
+}
+
+/* Header/Blog Title */
+header{
+  height: 80vh;
+  background-image: url(../img/El_Montgó_des_prop_del_camp_de_tir\,_Gata_de_Gorgos.jpeg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+
+  /* ALINIEAMOS EL TITULO AL CENTRO DEL CONTENEDOR */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/*imagen del logo*/
+.logo{
+  vertical-align: middle;
+  float: left;
+}
+
+/* MENU */
+.navbar {
+  overflow: hidden;
+  background-color: var(--azulgris);
+  /* position: relative; */
+  position: sticky;
+  top: 0;
+  width: 100%;
+}
+
+.navbar a {
+  float: left;
+  display: block;
+  color: var(--blancoRoto);
+  text-align: center;
+  padding: 16px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.navbar a:hover {
+  background: var(--grisClaro);
+  color: black;
+  vertical-align: middle;
+}
+.navbar .icon {
+  display: none;
+}
+@media screen and (max-width: 600px) {
+  .navbar a:not(:first-child) {display: none;}
+  .navbar a.icon {
+    float: right;
+    display: block;
+  }
+  .titulo{
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .navbar.responsive {position: relative;}
+  .navbar.responsive .icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  .navbar.responsive a {
+    float: none;
+    display: block;
+    text-align: left;
+  }
+  .navbar img {
+    float: none;
+  }
+}
+/*Admin*/
+.navbar .right {
+  float: right;
+}
+
+/* FECHA DEL ARTICULO */
+.date {
+  font-weight: bold;
+  line-height: normal;
+  background-color: var(--azulgris);
+  padding: 2px;
+  color: var(--blanco);
+}
+.temas {
+  margin-left: 1rem;
+}
+/* ABOUT  */
+.portada {
+  width: 100%;
+  height: auto;
+}
+.about{
+  font-family: Georgia, 'Times New Roman', Times, serif; 
+  text-align: center;
+}
+
+/* TITULO PORTADA */
+.titulo {
+  font-size: 60px;
+  margin-bottom: 15px;
+  color: var(--blanco);
+  font-family: var(--fuente);
+}
+@media (min-width: 400px){
+    .titulo {
+      text-align: center;
+      font-size: 60px;
+    }
+}
+
+/* Left column */
+.leftcolumn {   
+  float: left;
+  width: 78%;
+}
+
+/* Right column */
+.rightcolumn {
+  float: left;
+  width: 22%;
+  padding-left: 12px;
+}
+  /*Titulos de la columna derecha*/
+  h3 {
+    margin-top: auto;
+    text-align: center;
+    padding: 8px;
+    background-color: var(--colorPrimario);
+    color: var(--blanco);
+    margin:  0 auto;
+  }
+
+  /*formato de los temas */
+  #temas li {
+    margin-top: -1px; /* Prevent double borders */
+    background-color: var(--blancoRoto);
+    padding: 10px;
+    font-size: 16px;
+  }
+
+  #temas a {
+    color: var(--colorSecundario);
+    text-decoration: none;
+  }
+  #temas li:hover{
+    background-color: var(--azulgris);
+  }
+
+  #temas a:hover{
+    color: var(--blanco);
+  }
+  /*foto links Redes Sociales*/
+  .foto {
+    width: 80px;
+    
+  }
+  .social a{
+    text-decoration: none;
+  }
+/* IMAGEN DE LA PORTADA */
+  .imagen {
+    width: 86%;
+  }
+
+/****PROPIEDADES DE LOS ARTICULOS, TÍTULO, LINK,IMAGEN...*****/
+.cartel {
+  background-color: var(--grisClaro);
+  margin: 2px auto;
+  padding: 2px;
+}
+
+/* Fake image */
+.fakeimg {  
+  image-rendering: auto;
+  text-align: center;
+}
+.fakeimg img {
+  width: 50%;
+  margin: 0 auto;
+}
+/* CARGANDO IMAGEN */
+.lazy {
+  opacity: 0.5;
+  /* filter: blur(5px); */
+  transition: opacity 0.3s ease-in-out, filter 0.3s ease-in-out;
+}
+
+/* TEXTO ARTICULO CENTER */
+.texto {
+  border-left: 2rem;
+  
+}
+
+/* Add a card effect for articles */
+.card {
+   background-color: var(--blanco);
+   padding: 14px;
+   margin-top: 10px;
+}
+
+/******* CONTACTO *******/
+.expancion {
+  background-color: var(--blanco);
+  padding: 14px;
+  margin-top: 10px;
+  width: 100%;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Footer */
+footer {
+  padding: 10px;
+  text-align: end;
+  background: var(--grisClaro);
+  margin-top: 14px;
+}
+footer a {
+  color: #000000;
+  text-decoration: none;
+}
+
+/* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 800px) {
+  .leftcolumn, .rightcolumn, .imagen, .fakeimg img {   
+    width: 100%;
+    padding: 0;
+    height: auto;
+  }
+}
+/***PROPIEDADES DEL MENÚ***/
+ul {
+  margin: 0;
+  padding: 0;
+  display: block;
+  list-style: none;
+}
