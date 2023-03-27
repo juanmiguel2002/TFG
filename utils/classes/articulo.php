@@ -55,10 +55,6 @@ class articulo{
     }
     public function setImagen(string $imagen): articulo
     {
-        // if($imagen != 'sin_imagen.jpg'){
-        //     $this->imagen = $imagen;
-        //     return $this;
-        // }
         $this->imagen = $imagen;
         return $this;
     }
