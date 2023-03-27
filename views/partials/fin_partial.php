@@ -10,11 +10,11 @@
     <article class="card">
       <h3>Temes</h3>
       <ul id="temas">
-        <li><a href="#" title="">250 ANYS: ERMITA I CRIST</a></li>
-        <li><a href="#" title="">ACTES</a></li>
-        <li><a href="#" title="">AHIR...HUI, SEMPRE GATA</a></li>
-        <li><a href="#" title="">ARTICLES DESTACATS</a></li>
-        <li><a href="#" title="">ARTICLES FESTES</a></li>
+        <li><a href="<?php $articulo->getTema()?> ?>" title="250 ANYS: ERMITA I CRIST">250 ANYS: ERMITA I CRIST</a></li>
+        <li><a href="#" title="ACTES">ACTES</a></li>
+        <li><a href="#" title="AHIR...HUI, SEMPRE GATA">AHIR...HUI, SEMPRE GATA</a></li>
+        <li><a href="#" title="ARTICLES DESTACATS">ARTICLES DESTACATS</a></li>
+        <li><a href="#" title="ARTICLES FESTES">ARTICLES FESTES</a></li>
         <li><a href="#" title="Notícies del poble de 1987 a ara">COM ERA GATA FA...</a></li>
         <li><a href="#" title="">COM ES VA FER...?</a></li>
         <li><a href="#" title="">COSTUMS</a></li>

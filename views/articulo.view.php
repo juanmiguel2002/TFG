@@ -1,3 +1,4 @@
+<!--VISTA DE LOS ARTICULOS QUE PASAMOS EL ID DEL ARTICULO SELECCIONADO-->
 <?php
   require_once 'partials/inicio_partial.php';
   require_once '../database/Connection.php';
@@ -35,7 +36,7 @@
             <a href="<?= ruta .$articulo->getUrlGallery()?>" target="_blank">
               <?php 
                 if($articulo->getImagen() !== "sin_imagen.jpg"){
-                  echo '<img src="'. ruta.$articulo->getUrlGallery() .'" alt="'.$articulo->getUrlGallery() .'" style="width: 50%; "/>';
+                  echo '<img src="'. ruta.$articulo->getUrlGallery() .'" alt="'.$articulo->getImagen() .'" style="width: 50%; "/>';
                 }
               ?>
             </a>
