@@ -10,6 +10,7 @@ class articulo{
     private $texto;
     private $imagen;
     private $id;
+    private $fk_temas;
     
     public function setTitulo(string $titulo) : articulo
     {
@@ -66,6 +67,15 @@ class articulo{
     public function setId($id): articulo
     { 
         $this->id = $id;
+        return $this;
+    }
+    public function getFk_temas() {
+        return $this->fk_temas;
+    }
+
+    public function setFk_Temas($fk_temas): articulo
+    { 
+        $this->fk_temas = $fk_temas;
         return $this;
     }
     public function getUrlGallery() : string

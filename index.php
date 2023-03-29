@@ -5,11 +5,11 @@
 
     try {
         $connection = Connection::make();
-
-        $sql = "SELECT id,titulo,fecha, concat(substr(texto,1,255),'...') as texto,tema,imagen
+        
+        $sql = "SELECT id,titulo,fecha, concat(substr(texto,1,255),'...') as texto,fk_temas, tema,imagen
         FROM v_articulos
         order by 1
-        limit 1000";
+        limit 500";
         
         $pdoStatment = $connection->prepare($sql);
         
