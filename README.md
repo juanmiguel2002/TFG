@@ -4,11 +4,13 @@ _Proyecto Final de **Curso De Dessarrollo de Aplicaciones Web** en el IES La Mar
 
 ## Construido con 🛠️
 
-_Aquí menciono las herramientas utilizadas_
+_Aquí menciono las herramientas utilizadas:_
 
 * [Java](https://www.java.com/es/) - Java
 * [PHP](https://www.php.net/manual/es/intro-whatis.php) - Base de todo el proyecte
 * [JS](https://developer.mozilla.org/es/docs/Web/JavaScript) - Usado para generar animaciones
+* [MYSQL](https://www.mysql.com/) - Base de datos
+* [CSS3](https://developer.mozilla.org/es/docs/Web/CSS) - Lenguaje de maquetación
 
 ## Autores ✒️
 _Autor del Proyecto y Dessarrolador del proyecto_
