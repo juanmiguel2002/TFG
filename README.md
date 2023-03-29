@@ -6,7 +6,7 @@ _Proyecto Final de **Curso De Dessarrollo de Aplicaciones Web** en el IES La Mar
 
 _Aquí menciono las herramientas utilizadas_
 
- [Java](https://www.java.com/es/) - Java
+* [Java](https://www.java.com/es/) - Java
 * [PHP](https://www.php.net/manual/es/intro-whatis.php) - Base de todo el proyecte
 * [JS](https://developer.mozilla.org/es/docs/Web/JavaScript) - Usado para generar animaciones
 
