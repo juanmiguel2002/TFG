@@ -6,9 +6,9 @@
     try {
         $connection = Connection::make();
         
-        $sql = "SELECT id,titulo,fecha, concat(substr(texto,1,255),'...') as texto,fk_temas, tema,imagen
+        $sql = "SELECT id,titulo,fecha, concat(substr(texto,1,255),'...') as texto, fk_temas, tema, imagen
         FROM v_articulos
-        order by 1
+        group by fk_temas
         limit 500";
         
         $pdoStatment = $connection->prepare($sql);
@@ -25,5 +25,5 @@
         echo $e->getMessage();
     }
     require_once 'views/partials/fin_partial.php';
-    //
+
 ?>
