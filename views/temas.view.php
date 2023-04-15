@@ -31,8 +31,8 @@
         <h5 class="temas">en <strong><a class="link" href="<?= $articulo->getFk_temas()?>" title="<?= $articulo->getTema(); ?>"><?= $articulo->getTema(); ?></a></h5></strong>
         <div class="fakeimg">
           <?php 
-            if($articulo->getImagen() !== "sin_imagen.jpg" && file_exists(ruta."upload" . $articulo->getImagen())){
-              echo '<img class="lazy" data-src="'. $articulo->getUrlGallery() .'" alt="'.$articulo->getUrlGallery() .'" style="width: 50%; "/>';
+            if($articulo->getImagen() !== "sin_imagen.jpg"){
+              echo '<img class="lazy" data-src="'.ruta. $articulo->getUrlGallery() .'" alt="'.$articulo->getUrlGallery() .'" style="width: 50%; "/>';
             }
             
           ?>
@@ -47,4 +47,4 @@
       </article>
     <?php endforeach;?>
   </section>
-     <?= require_once 'partials/fin_partial.php';?>
+  <?= require_once 'partials/fin_partial.php';?>

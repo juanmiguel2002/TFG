@@ -9,11 +9,11 @@
         <div class="fakeimg">
           <?php 
             if($articulo->getImagen() != "sin_imagen.jpg"){
-              echo '<img  class="lazy" data-src="'. $articulo->getUrlGallery() .'" alt="'.$articulo->getUrlGallery() .'" style="width: 50%; "/>';
+              echo '<img class="lazy" data-src="'. $articulo->getUrlGallery() .'" alt="'.$articulo->getUrlGallery() .'" style="width: 50%; "/>';
             }
           ?>
         </div>
-        <p style="font-size: 16px;">
+        <p class="texto">
           <?php
             if ($articulo->getTexto() != "") {
               echo $articulo->getTexto();

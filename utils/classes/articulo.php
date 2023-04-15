@@ -80,11 +80,7 @@ class articulo{
     }
     public function getUrlGallery() : string
     {   
-        if (self::RUTA_IMAGENES_GALLERY !== "upload/") {
-            return ruta . self::RUTA_IMAGENES_GALLERY . $this->getImagen();
-        }else{
-            return self::RUTA_IMAGENES_GALLERY . $this->getImagen();
-        }
+        return self::RUTA_IMAGENES_GALLERY . $this->getImagen();
     }
 }
 ?>

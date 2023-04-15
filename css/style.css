@@ -121,6 +121,7 @@ header{
 .temas {
   margin-left: 1rem;
 }
+
 /* ABOUT  */
 .portada {
   width: 100%;
@@ -165,6 +166,11 @@ header{
     background-color: var(--colorPrimario);
     color: var(--blanco);
     margin:  0 auto;
+  }
+  /* centrar el texto si no hay img TEXTO ARTICULO CENTER */
+  .texto {
+    font-size: 20px;
+    border-left: 2rem;
   }
 
   /*formato de los temas */
@@ -222,17 +228,12 @@ header{
   transition: opacity 0.3s ease-in-out, filter 0.3s ease-in-out;
 }
 
-/* TEXTO ARTICULO CENTER */
-.texto {
-  border-left: 2rem;
-  
-}
-
 /* Add a card effect for articles */
 .card {
    background-color: var(--blanco);
    padding: 14px;
    margin-top: 10px;
+   text-align: left;
 }
 
 /******* CONTACTO *******/
