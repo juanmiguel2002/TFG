@@ -32,7 +32,7 @@
         <div class="fakeimg">
           <?php 
             if($articulo->getImagen() !== "sin_imagen.jpg"){
-              echo '<img class="lazy" data-src="'.ruta. $articulo->getUrlGallery() .'" alt="'.$articulo->getUrlGallery() .'" style="width: 50%; "/>';
+              echo '<img class="lazy" data-src="'.ruta. $articulo->getUrlGallery() .'" alt="'.$articulo->getImagen() .'" style="width: 50%; "/>';
             }
             
           ?>
