@@ -7,8 +7,8 @@
         $connection = Connection::make();
         
         $sql = "SELECT id,titulo,fecha, concat(substr(texto,1,255),'...') as texto, fk_temas, tema, imagen
-        FROM v_articulos
-        group by fk_temas
+        FROM articulos
+        order by 1 desc
         limit 500";
         
         $pdoStatment = $connection->prepare($sql);

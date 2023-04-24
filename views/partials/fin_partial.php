@@ -28,7 +28,7 @@
       </ul>
     </article>
 
-    <section class="card">
+    <article class="card">
       <h3>Enllaços</h3><br>
       <div class="social">
         <a title="Facebook" href="https://www.facebook.com/cronista.degata.5" target="_blank">
@@ -38,7 +38,18 @@
           <img src="<?=ruta ?>img/instagram.png" class="foto" alt="Instagram"/>
         </a>
       </div>
-    </section>
+    </article>
+
+    <article class="card">
+      <h3>El temps</h3><br>
+      <div id="tiempo_dbe0547377eb129ef65e90b1154bcfb4">
+        <div></div>
+        <div> 
+          <img src="//www.tiempo.es/build/img/logo/tiempo133.png" width="50" height="18" alt="tiempo.es"> 
+        </div> 
+        <script type="text/javascript" src="//www.tiempo.es/widload/ca/ver/290/339/111/es0al0068/dbe0547377eb129ef65e90b1154bcfb4.js"></script>
+      </div>
+    </article>
   </section>
 </main>
   <footer>

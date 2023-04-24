@@ -1,22 +1,19 @@
 <?php
     //abres una session
     session_start();
-
-    $hora = date('G'); 
-    switch ($hora) {
-    case (($hora >= 6) AND ($hora < 12)):
-        $mensaje = "Bon dia";
-        break;
-    case (($hora >= 12) AND ($hora < 18)):
-        $mensaje = "Bona vesprada"; 
-        break;
-    case (($hora >= 18) AND ($hora < 20)):
-        $mensaje = "Bona vesprada"; 
-        break;
-    case (($hora >= 21) AND ($hora < 6)):
-        $mensaje = "Bona Nit"; 
-        break;
+    // función para hacer el saludo cordial.
+    function buenosque($formulas) {
+        $hora = date("H");
+        
+        foreach($formulas as $formula) {
+            if($hora > $formula[0] && $hora < $formula[1]) return $formula[2];
+        }
     }
+    $formulas = array(
+        array(-1, 7, "Bona nit"),
+        array(6, 15, "Bon dia"),
+        array(14, 21, "Bona tarda"),
+        array(20, 24, "Bona nit"));
 ?>
 
 <head>
@@ -38,7 +35,7 @@
         </div>
         <div class="col-xl-7 col-lg-12 d-flex">
             <div class="container align-self-center p-6">
-                <h1 class="font-weight-bold mb-3"><?= $mensaje?> Cronista <strong>Oficial de GATA de GORGOS</strong></h1>
+                <h1 class="font-weight-bold mb-3"><?= buenosque($formulas)?> Cronista <strong>Oficial de GATA de GORGOS</strong></h1>
                 <p id="mensaje"></p>
                 <form action="views/panelControl.php" method="POST" enctype="multipart/form-data">
                     <div class="form-group mb-3">

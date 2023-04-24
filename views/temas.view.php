@@ -8,7 +8,8 @@
     $temas = $_GET['id'];
     $connection = Connection::make();
 
-    $sql = "SELECT id,titulo,fecha, concat(substr(texto,1,255),'...') as texto,tema,imagen FROM v_articulos WHERE fk_temas = $temas";
+    $sql = "SELECT id,titulo,fecha, concat(substr(texto,1,255),'...') as texto,tema,imagen 
+    FROM v_articulos WHERE fk_temas = $temas";
     
     $pdoStatment = $connection->prepare($sql);
     

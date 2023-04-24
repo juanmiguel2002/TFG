@@ -49,7 +49,7 @@ try {
     $mail->isHTML(true);                                  // Set email format to HTML
     $mail->Subject = $_SESSION['asunto'];                                  // Set email subject
     $mail->Body = $_SESSION['texto'] . '<br><strong><br>Gracias por contar con nosotros</strong>';   // Set email body
-    $mail->AltBody = 'Subscribete para más contenido'; // Set alternate body in plain text for non-HTML mail clients
+    $mail->AltBody = 'Subscribete para más contenido.'; // Set alternate body in plain text for non-HTML mail clients
 
     $mail->send();
     echo 'Message has been sent';

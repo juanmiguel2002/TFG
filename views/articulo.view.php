@@ -8,7 +8,7 @@
     $id = $_GET['id'];
     $connection = Connection::make();
 
-    $sql = "SELECT * FROM v_articulos WHERE id = $id";
+    $sql = "SELECT * FROM articulos WHERE id = $id";
     
     $pdoStatment = $connection->prepare($sql);
     
@@ -18,7 +18,7 @@
         $articulos = $pdoStatment->fetchAll(PDO::FETCH_CLASS, 'articulo');
         //print_r($articulos);
     } 
-
+    
   }catch(Exception $e){
     echo $e->getMessage();
   }
@@ -42,7 +42,7 @@
             </a>
           </div><hr>
           <div class="texto">
-            <?= $articulo->getTexto();?>
+            <p><?= $articulo->getTexto();?></p>
           </div>
         <?php endforeach;?>
       </article>

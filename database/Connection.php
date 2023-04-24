@@ -5,7 +5,7 @@ class Connection
     public static function make()
     {
         $host = 'localhost';
-        $db = 'cronistagata';
+        $db = 'cron'; // cronistagata copia
         $user = 'cronista';      //Usuario con el que conectarse
         $pass = '1234';          //Contraseña del usuario
 
