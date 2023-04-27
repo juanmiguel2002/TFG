@@ -42,7 +42,7 @@
             </a>
           </div><hr>
           <div class="texto">
-            <p><?= $articulo->getTexto();?></p>
+            <p class="primero">   <?= $articulo->getTexto();?></p>
           </div>
         <?php endforeach;?>
       </article>

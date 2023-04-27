@@ -25,6 +25,7 @@
     echo $e->getMessage();
   }
 ?>
+
 <main class="row">
   <section class="leftcolumn"> 
     <?php foreach ($articulos as $articulo) :?>

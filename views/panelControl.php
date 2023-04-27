@@ -1,5 +1,5 @@
 <?php
-  define('ruta','http://localhost/CronistaGata/'); 
+    define('ruta','http://localhost/CronistaGata/'); 
     session_start();
     if (((isset($_POST['usuario'])  && $_POST['usuario'] != "") && ($_POST['password'] != "" && isset($_POST['password'])))) {
         $_SESSION['user'] = $_POST['usuario'];
@@ -26,7 +26,8 @@
   <header>
     <h1 class="titulo">Cronista de Gata de Gorgos</h1>
   </header>
-<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+  <div id="editorjs"></div>
+<!-- <nav class="navbar navbar-expand-md navbar-dark bg-dark">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">
       <img class="logo horizontal-logo" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/162656/horizontal-logo.svg" alt="cronistadegata logo">
@@ -69,6 +70,7 @@
   </div>
 </nav>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-<script src="../js/submenu.js"></script>
+<script src="../js/submenu.js"></script> -->
+<script src="<?=ruta?>js/editor.js"></script>
 </body>
 </html>

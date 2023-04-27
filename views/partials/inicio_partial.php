@@ -43,3 +43,4 @@
 	<script src="<?=ruta?>js/popper.js"></script>
 	<script src="<?=ruta?>js/bootstrap.min.js"></script>
 	<script src="<?=ruta?>js/main.js"></script>
+  
