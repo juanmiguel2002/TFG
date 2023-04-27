@@ -4,10 +4,11 @@
     require_once 'utils/classes/articulo.php';
 
     try {
-        $connection = Connection::make();
         
-        $sql = "SELECT id,titulo,fecha, concat(substr(texto,1,255),'...') as texto, fk_temas, tema, imagen
-        FROM articulos
+        $connection = Connection::make();
+
+        $sql = "SELECT DISTINCT id, titulo, fecha, concat(substr(texto,1,258),'... ') as texto, fk_temas, tema, imagen
+        FROM v_articulos
         order by 1 desc
         limit 500";
         
@@ -25,5 +26,4 @@
         echo $e->getMessage();
     }
     require_once 'views/partials/fin_partial.php';
-
 ?>

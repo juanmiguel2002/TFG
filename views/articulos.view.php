@@ -16,7 +16,7 @@
         <p class="texto">
           <?php
             if ($articulo->getTexto() != "") {
-              echo $articulo->getTexto();
+              echo $articulo->getTexto() .'<a class="link" href="views/articulo.view.php?id='. $articulo->getId(). '"> Llegir més </a>';
             }
           ?>
         </p>

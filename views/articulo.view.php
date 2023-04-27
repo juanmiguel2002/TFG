@@ -8,7 +8,7 @@
     $id = $_GET['id'];
     $connection = Connection::make();
 
-    $sql = "SELECT * FROM articulos WHERE id = $id";
+    $sql = "SELECT * FROM v_articulos WHERE id = $id";
     
     $pdoStatment = $connection->prepare($sql);
     

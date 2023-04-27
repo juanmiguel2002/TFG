@@ -1,6 +1,25 @@
 <?php
   // treurer els fk_Temas de la BBDD i fer un foreach per a posar-ho / posiblement gastar la clase temas.php
-  //require_once 'database/Connection.php';
+  //zinclude '../../database/Connection.php';
+  // require_once ruta.'utils/classes/articulo.php';
+
+  try {
+
+    $connection = Connection::make();
+
+    $sql = "SELECT * from temas";//selecionamos todo los datos para mostrarlos en la página principal
+    
+    $pdoStatment = $connection->prepare($sql);
+    
+    if($pdoStatment->execute() === false){
+        echo "No se ha podido acceder a la BBDD";
+    }else{
+        $articulos = $pdoStatment->fetchAll(PDO::FETCH_CLASS , "articulo");
+    } 
+    
+  }catch(Exception $e){
+    echo $e->getMessage();
+  }
 ?>
 
 <section class="rightcolumn">
@@ -17,9 +36,11 @@
       <ul id="temas">
         <?php
           $temas = array(); // Array auxiliar para comprobar temas repetidos
+          $i=1;
           foreach ($articulos as $tema) {
             if (!in_array($tema->getTema(), $temas)) { // Comprobamos si el tema ya existe en el array
-              echo '<li><a href="views/temas.view.php?id=' . $tema->getFk_temas() . '" title="' . $tema->getTema() . '">' . $tema->getTema() . '</a></li>';
+              echo '<li><a href="'.ruta.'views/temas.view.php?id=' . $i. '" title="' . $tema->getTema() . '">' . $tema->getTema() . '</a></li>';
+              $i++;
               $temas[] = $tema->getTema(); // Añadimos el tema al array auxiliar
             }
           }
@@ -53,7 +74,7 @@
   </section>
 </main>
   <footer>
-    <h4>© Copyright 2022 <a href="<?=ruta ?>">Cronistadegata</a> | By Juanmi</h4>
+    <h4>© Copyright 2022-2023 <a href="<?=ruta ?>">Cronistadegata</a> | By Juanmi</h4>
   </footer>
   <script src="<?=ruta?>js/cargando.js"></script>
   </body>

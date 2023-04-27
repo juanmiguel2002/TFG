@@ -37,8 +37,8 @@ class articulo{
         return $this;
     }
     public function getFecha()
-    {
-        return $this->fecha;
+    {   //substituimos la fecha que esta en la BBDD por la fecha normal
+        return date('d-m-Y', strtotime($this->fecha));
     }
 
     public function setTexto(string $texto): articulo
