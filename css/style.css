@@ -51,7 +51,7 @@ header{
 }
 
 /*Admin*/
-.navbar .right {
+form.right {
   float: right;
 }
 
@@ -117,14 +117,8 @@ header{
   .texto {
     font-size: 18px;
     border-left: 2rem;
-    line-height: 0.5;
   }
-  /* clase para hacer el interlineado y la sangria en la 1er línea */
-  strong {
-    margin-bottom: 0;
-    text-indent: 1.5em;
-  }
-
+  
   /*formato de los temas */
   #temas li {
     margin-top: -1px; /* Prevent double borders */
@@ -232,7 +226,6 @@ ul {
   display: block;
   list-style: none;
 }
-
 
 /*Flecha hacia arriba*/
 .ir-arriba{

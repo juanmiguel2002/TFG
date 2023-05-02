@@ -6,11 +6,12 @@
     try {
         
         $connection = Connection::make();
-
+        $page = isset($_POST['pagina']);
+        
         $sql = "SELECT DISTINCT id, titulo, fecha, concat(substr(texto,1,258),'... ') as texto, fk_temas, tema, imagen
         FROM v_articulos
         order by 1 desc
-        limit 500";
+        limit 100";
         
         $pdoStatment = $connection->prepare($sql);
         

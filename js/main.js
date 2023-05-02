@@ -18,6 +18,7 @@
 
 $(document).ready(function(){ irArriba(); }); //Hacia arriba
 
+// FUNCION PARA IR ARRIBA
 function irArriba(){
   $('.ir-arriba').click(function(){ $('body,html').animate({ scrollTop:'0px' },1000); });
   $(window).scroll(function(){

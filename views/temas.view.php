@@ -48,6 +48,6 @@
           ?>
         </p>
       </article>
-    <?php endforeach;?>
+      <?php endforeach;?>
   </section>
   <?= require_once 'partials/fin_partial.php';?>
