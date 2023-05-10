@@ -67,6 +67,7 @@ $formulas = array(
         email_admin = datos.user;
         pwd_admin = datos.pwd;
     }
+    
     leerUsuarios();
 
     //validación por parte del cliente.

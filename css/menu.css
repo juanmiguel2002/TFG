@@ -1,5 +1,5 @@
 /* ESTILOS PARA EL MENÚ RESPONSIVE */
-a {
+  a {
     text-decoration: none;
     background-color: transparent;
   }
@@ -106,7 +106,7 @@ a {
     }
   }
   
-  @media (min-width: 992px) {
+  @media (min-width: 800px) {
     .dropdown-menu-lg-left {
       right: auto;
       left: 0;

@@ -1,28 +1,21 @@
 <!--VISTA DE LOS ARTICULOS QUE PASAMOS EL ID DEL ARTICULO SELECCIONADO-->
 <?php
   require_once 'partials/inicio_partial.php';
-  require_once '../database/Connection.php';
+  require_once "../database/base_de_datos.php";
   require_once '../utils/classes/articulo.php';
 
-  try {
-    $id = $_GET['id'];
-    $connection = Connection::make();
+  $id = $_GET['id'];
 
-    $sql = "SELECT * FROM v_articulos WHERE id = $id";
-    
-    $pdoStatment = $connection->prepare($sql);
-    
-    if($pdoStatment->execute() === false){
-        echo "No se ha podido acceder a la BBDD";
-    }else{
-        $articulos = $pdoStatment->fetchAll(PDO::FETCH_CLASS, 'articulo');
-        //print_r($articulos);
-    } 
-    
-  }catch(Exception $e){
-    echo $e->getMessage();
+  $sentencia = $pdo->prepare("SELECT * FROM v_articulos WHERE id = $id");
+  $sentencia->execute();
+  $articulos = $sentencia->fetchAll(PDO::FETCH_CLASS,'articulo');
+  if (!is_numeric($id) || $id < 1 || $id > 15000) {
+    header("HTTP/1.0 404 Not Found");
+    include("./utils/404.php");
+    exit();
   }
 ?>
+
 <main class="row">
     <section class="leftcolumn"> 
       <article class="card">
@@ -36,15 +29,15 @@
             <a href="<?= ruta .$articulo->getUrlGallery()?>" target="_blank">
               <?php 
                 if($articulo->getImagen() !== "sin_imagen.jpg"){
-                  echo '<img src="'. ruta.$articulo->getUrlGallery() .'" alt="'.$articulo->getImagen() .'" style="width: 50%; "/>';
+                  echo '<img src="'. ruta.$articulo->getUrlGallery() .'" alt="'.$articulo->getImagen() .'"/>';
                 }
               ?>
             </a>
           </div><hr>
           <div class="texto">
-            <p class="primero">   <?= $articulo->getTexto();?></p>
+            <p class="primero"> <?= $articulo->getTexto();?></p>
           </div>
         <?php endforeach;?>
       </article>
     </section>
-<?= include 'partials/fin_partial.php';?>
+<?php include 'partials/fin_partial.php';?>

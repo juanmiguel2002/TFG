@@ -168,11 +168,11 @@ form.right {
   margin: 0 auto;
 }
 /* CARGANDO IMAGEN */
-/* .lazy {
+.lazy {
   opacity: 0.5;
   filter: blur(5px);
   transition: opacity 0.3s ease-in-out, filter 0.3s ease-in-out;
-} */
+}
 
 /* Add a card effect for articles */
 .card {
@@ -218,7 +218,6 @@ footer a {
   }
 }
  
-
 /***PROPIEDADES DEL MENÚ***/
 ul {
   margin: 0;
@@ -239,3 +238,106 @@ ul {
   right: 10px;
   z-index: 2;
 }
+
+/* BOTONES PAGINACIÓN */
+
+.botones {
+  display: flex;
+  justify-content: center;
+}
+
+.row2 {
+    margin-left: -15px;
+    margin-right: -15px
+}
+.center {
+  text-align: center;
+}
+
+.pagination {
+  display: inline;
+}
+
+.pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color .3s;
+  border: 1px solid #979797;
+  margin: 0 4px;
+}
+
+.pagination a.active {
+  background-color: #4CAF50;
+  color: white;
+  border: 1px solid #4CAF50;
+}
+
+.pagination a:hover:not(.active) {
+  background-color: #ddd;
+}
+.col-xs-12,.col-sm-6 {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px
+}
+@media (min-width:768px) {
+
+  .col-sm-6, .col-xs-12 {
+      float: left
+  }
+  .col-sm-6 {
+    width: 50%
+  }
+  .col-xs-12 {
+    width: 100%
+  } 
+}
+
+/* estilos cookies */
+
+.cookies {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 10px;
+  background-color: #f7f7f7;
+  border-top: 1px solid #ddd;
+  text-align: center;
+  z-index: 9999;
+}
+
+.cookies .button {
+  background-color: var(--colorPrimario);
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.cookies .button:hover {
+  background-color: var(--colorSecundario);
+}
+
+.cookies .cookiestext {
+  font-size: 16px;
+  margin: 10px 0;
+}
+
+.cookies .cookiestext a {
+  color: #4CAF50;
+  text-decoration: none;
+}
+
+.cookies .cookiestext a:hover {
+  text-decoration: double;
+}
+
+.hiden {
+  display: none;
+} 

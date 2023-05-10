@@ -19,8 +19,8 @@ try {
     $mail->Host = 'smtp.office365.com';                       // Set the SMTP server to send through
     //$mail->Host = gethostbyname('smtp.gmail.com');            // Si hay problemas con SMTP en IPv6
     $mail->SMTPAuth= true;                                   // Enable SMTP authentication
-    $mail->Username = '';          // SMTP username
-    $mail->Password = '';                                     // SMTP password
+    $mail->Username = 'juanmi0802@gmail.com';          // SMTP username
+    $mail->Password = 'Juanmivero812';                                     // SMTP password
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable implicit TLS encryption
     //$mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            // Enable implicit SSL encryption
     $mail->Port = 587;                                    // TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
@@ -34,8 +34,8 @@ try {
     ];
 
     //Recipients
-    $mail->setFrom('', '');                                     // Set sender (email, name)
-    $mail->addAddress($_SESSION['email'], 'juanmi');                                  // Add a recipient (email, name)
+    $mail->setFrom('juanmi0802@gmail.com', '');                                     // Set sender (email, name)
+    $mail->addAddress($_SESSION['email'], $_SESSION['nom']);                                  // Add a recipient (email, name)
     //$mail->addAddress('ellen@example.com');                   // Name is optional
     //$mail->addReplyTo('', '');                                  // Set reply to (email, name)
     //$mail->addCC('cc@example.com');
@@ -47,12 +47,12 @@ try {
 
     //Content
     $mail->isHTML(true);                                  // Set email format to HTML
-    $mail->Subject = $_SESSION['asunto'];                                  // Set email subject
+    $mail->Subject = 'Colaborar o aportar de '. $_SESSION['nom'];                                  // Set email subject
     $mail->Body = $_SESSION['texto'] . '<br><strong><br>Gracias por contar con nosotros</strong>';   // Set email body
-    $mail->AltBody = 'Subscribete para más contenido.'; // Set alternate body in plain text for non-HTML mail clients
+    $mail->AltBody = 'Suscribete para más contenido.'; // Set alternate body in plain text for non-HTML mail clients
 
     $mail->send();
-    echo 'Message has been sent';
+    echo "Les dades estan enviades";
 } catch (Exception $e) {
     echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
 }

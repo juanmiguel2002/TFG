@@ -6,12 +6,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="<?=ruta?>css/style.css" rel="stylesheet" type='text/css'/>
   <link href="<?=ruta?>css/menu.css" rel="stylesheet" type='text/css'/>
+  <link href="<?=ruta?>css/buscador.scss" rel="stylesheet" type='text/css'/>
+
   <!-- Fuentes de letra -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- Icono del menu -->
   <link rel="shortcut icon" href="<?=ruta?>img/periodic1.jpg" type="image/jpg"/>
+
 </head>
 <body>
   <header>
@@ -28,13 +32,23 @@
         <li class="nav-item active"><a href="<?=ruta?>index.php" class="nav-link">Home</a></li>
         <li class="nav-item"><a href="#" class="nav-link">Destacats</a></li>
         <li class="nav-item"><a href="<?=ruta?>views/contacto.view.php" class="nav-link">Contacte</a></li>
-        <li class="nav-item"><a href="views/login.view.php" class="nav-link">Admin</a></li>
+        <li class="nav-item"><a href="<?=ruta?>views/login.view.php" class="nav-link">Admin</a></li>
       
       </ul>
-      <form class="form-inline right">
+      <fieldset class="field-container right">
+        <input type="text" placeholder="Buscar..." class="field" />
+        <div class="icons-container">
+          <div class="icon-search"></div>
+          <div class="icon-close">
+            <div class="x-up"></div>
+            <div class="x-down"></div>
+          </div>
+        </div>
+      </fieldset>
+      <!-- <form class="form-inline right">
           <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Buscar">
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
-        </form>                         
+        </form>                          -->
     </div>
   </nav>
   <a class="ir-arriba" javascript:void(0) title="Volver arriba">
@@ -42,10 +56,5 @@
       <i class="fa fa-circle fa-stack-2x"></i>
       <i class="fa fa-arrow-up fa-stack-1x fa-inverse"></i>
     </span>
-    
   </a>
-  <script src="<?=ruta?>js/jquery.min.js"></script>
-	<script src="<?=ruta?>js/popper.js"></script>
-	<script src="<?=ruta?>js/bootstrap.min.js"></script>
-	<script src="<?=ruta?>js/main.js"></script>
-  
+  <script src="<?= ruta ?>js/jquery.min.js"></script>

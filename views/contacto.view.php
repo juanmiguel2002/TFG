@@ -1,4 +1,8 @@
-<?php define('ruta','http://localhost/CronistaGata/'); ?>
+<?php 
+  define('ruta','http://localhost/CronistaGata/'); 
+  require '../database/Connection.php';
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,8 +18,9 @@
 
 <body>
   <header>
-    <h1 class="titulo">Cronista de Gata de Gorgos</h1>
+    <h1 class="ti tulo">Cronista de Gata de Gorgos</h1>
   </header>
+
   <nav class="navbar navbar-expand-lg">
     <a class="navbar-brand" href="<?=ruta?>index.php"><img class="logo" src="<?=ruta?>img/logo1.png" width="69" alt="CronistadeGata"/></a>	
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
@@ -24,10 +29,7 @@
     </button>
     <div class="collapse navbar-collapse" id="ftco-nav">
       <ul class="navbar-nav">
-        <li class="nav-item active"><a href="#" class="nav-link">Home</a></li>
-        <li class="nav-item"><a href="#" class="nav-link">Destacats</a></li>
-        <li class="nav-item"><a href="<?=ruta?>views/contacto.view.php" class="nav-link">Contacte</a></li>
-        <!-- <li class="nav-item right"><a href="views/login.view.php" class="nav-link">Admin</a></li> -->
+        <li class="nav-item active"><a href="<?=ruta?>index.php" class="nav-link">Home</a></li>
       </ul>                            
     </div>
   </nav>
@@ -49,8 +51,8 @@
         <div class="email details">
           <i class="fas fa-envelope"></i>
           <div class="topic">Email</div>
-          <div class="text-one">mivisig@gmail.com</div>
-          <div class="text-two">juanmi0802@gmail.com</div>
+          <div class="text-one"><a href="mailto:mivisig@gmail.com">mivisig@gmail.com</a></div>
+          <div class="text-two"><a href="mailto:juanmi0802@gmail.com">juanmi0802@gmail.com</a></div>
         </div>
       </article>
       <article class="right-side">
@@ -58,36 +60,38 @@
         <p>Si vols colaborar o aportar alguna informació/imatges no duptes en contactar en el Cronistadegata.</p>
         <form action="<?=$_SERVER['PHP_SELF']?>" method="POST" enctype="multipart/form-data">
         <div class="input-box">
-          <input type="text" placeholder="Nom">
+          <input type="text" placeholder="Nom" name="nom">
         </div>
         <div class="input-box">
-          <input type="email" placeholder="Email" required>
+          <input type="email" placeholder="Email" required name="email">
         </div>
         <div class="input-box message-box">
-            <textarea rows="4" cols="50" placeholder="text"></textarea>
+            <textarea rows="4" cols="50" placeholder="text" name="texto"></textarea>
         </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="1" name="check"> Acepta les Condicions 
+        </div>
+        
         <div class="button">
           <input type="submit" value="Enviar" >
         </div>
       </form>
-      <?php 
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $_SESSION['email'] = $_POST['email'] ;
-            $_SESSION['asunto'] = $_POST['asunto'];
-            $_SESSION['texto'] = $_POST['texto'];
-            echo "datos enviados";
-
-            require_once '../utils/classes/enviarMail_ejemplo.php';
-        }
+      <?php
+      if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $_SESSION['nom'] = $_POST['nom'];
+        $_SESSION['email'] = $_POST['email'];
+        $_SESSION['texto'] = $_POST['texto'];
+        
+        require_once '../utils/classes/enviarMail.php';
+      }
       ?>
     </article>
     </section>
   </main>
 
   <footer class="container">
-    <h4>© Copyright 2022 <a href="index.html">Cronistadegata</a> | By Juanmi</h4>
+    <h4>© Copyright 2022-2023<a href="../index.php">Cronistadegata</a> | By Juanmi</h4>
   </footer>
-
   <script src="<?=ruta?>js/jquery.min.js"></script>
 	<script src="<?=ruta?>js/popper.js"></script>
 	<script src="<?=ruta?>js/bootstrap.min.js"></script>

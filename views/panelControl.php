@@ -6,29 +6,32 @@
     $_SESSION['contra'] = $_POST['password'];
   }
 
-  require '../database/Connection.php';
+  require '../database/base_de_datos.php';
+  require_once '../utils/classes/Paginacion.php'; 
   require_once '../utils/classes/articulo.php';
-  try {
-        
-    $connection = Connection::make();
-    $page = isset($_POST['pagina']);
-    
-    $sql = "SELECT DISTINCT id, titulo, fecha, tema
-    FROM v_articulos
-    order by 1 desc
-    limit 100";
-    
-    $pdoStatment = $connection->prepare($sql);
-    
-    if($pdoStatment->execute() === false){
-        echo "No se ha podido acceder a la BBDD";
-    }else{
-        $articulos = $pdoStatment->fetchAll(PDO::FETCH_CLASS,'articulo');
-    }
 
-  }catch(Exception $e){
-      echo $e->getMessage();
-  }
+  $sentencia = $pdo->query("SELECT count(*) AS conteo FROM articulos");
+  $total_registros = $sentencia->fetchObject()->conteo;
+
+  $registros_por_pagina = 100; #Registros mostrar por página.
+  $pagina_actual = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
+
+  $paginas_a_mostrar = 15;
+  $paginacion = new Paginacion($total_registros, $registros_por_pagina, $pagina_actual, $paginas_a_mostrar);
+  $offset = $paginacion->getOffset(); # El offset es saltar X productos que viene dado por multiplicar la página - 1 * los productos por página
+  
+  $limit = $paginacion->getRegistrosPorPagina(); # El límite es el número de productos por página
+  $total_paginas = $paginacion->getTotalPaginas();
+  $pagina_actual = $paginacion->getPaginaActual();
+  $paginas_a_mostrar = $paginacion->getPaginasAMostrar();
+
+  $rango_inicio = max($pagina_actual - floor($paginas_a_mostrar / 2), 1);
+  $rango_fin = min($rango_inicio + $paginas_a_mostrar - 1, $total_paginas);
+  
+    # Ahora obtenemos los productos usando ya el OFFSET y el LIMIT
+  $sentencia = $pdo->prepare("SELECT DISTINCT id, titulo, fecha, tema FROM v_articulos order by 1 desc LIMIT ? OFFSET ?");
+  $sentencia->execute([$limit, $offset]);
+  $articulos = $sentencia->fetchAll(PDO::FETCH_CLASS,'articulo');
 ?>
 <!DOCTYPE html>
 <html>
@@ -41,23 +44,23 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz&display=swap" rel="stylesheet">
   <link rel="shortcut icon" href="<?= ruta ?>img/periodic1.jpg" type="image/jpg" />
-  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
+
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="<?= ruta ?>utils/richtexteditor/rte_theme_default.css" />
+  <!-- <link rel="stylesheet" href="<?= ruta ?>utils/richtexteditor/rte_theme_default.css" /> -->
 </head>
 
-<body style="padding-bottom:3px;align-items:center">
+<body style="padding-bottom:2px;align-items:center">
   <header>
     <nav class="navbar navbar-inverse">
       <div class="container-fluid">
         <div class="navbar-header">
-          <a class="navbar-brand" href="#">CronistadeGata</a>
+          <a class="navbar-brand" href="<?=ruta?>">CronistadeGata</a>
         </div>
         <ul class="nav navbar-nav">
           <li class="active"><a href="#">Home</a></li>
-          <li><a href="#">Escriu nou</a></li>
+          <li><a href="nuevo.articulo.php">Escriu nou</a></li>
           <li><a href="#">Artículs</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
@@ -68,39 +71,47 @@
               <li><a href="#">Opcions</a></li>
             </ul>
           </li>
-          <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+          <li><a href="CerrarSession.php"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
         </ul>
       </div>
     </nav>
+    <!-- BOTON HACIA ARRIBA -->
+    <a class="ir-arriba" javascript:void(0) title="Volver arriba">
+      <span class="fa-stack">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <i class="fa fa-arrow-up fa-stack-1x fa-inverse"></i>
+      </span>
+    </a>
   </header>
   <!-- CONTENEDOR DONDE SE MOSTRARAN TODOS LOS ARTICULOS -->
   <div class="container">
-      <table class="table table-responsive">
-        <thead>
+    <table class="table table-responsive">
+      <thead>
+          <tr>
+              <th>Data</th>
+              <th>Articles</th>
+              <th>Opcions</th>
+          </tr>
+      </thead>
+      <tbody>
+          <?php
+            foreach ($articulos as $articulo) : ?>
             <tr>
-                <th>Data</th>
-                <th>Articles</th>
-                <th>Opcions</th>
+            <td><?=$articulo->getFecha()?></td>
+              <td><?=$articulo->getTitulo()?>
+                <br><strong><i>Publicat en <?= $articulo->getTema()?></i></strong>
+              </td>
+              <td><a href="../utils/editar.php?id=<?= $articulo->getId()?>">Editar</a><br>
+              <a href='"../utils/eliminar.php?id=<?= $articulo->getId()?>"'>Eliminar</a><br>
+              <a href='"../utils/borrador.php?id=<?= $articulo->getId()?>"'>Borrador</a>
+              </td>
             </tr>
-        </thead>
-        <tbody>
-            <?php
-              foreach ($articulos as $articulo) : ?>
-              <tr>
-              <td><?=$articulo->getFecha()?></td>
-                <td><?=$articulo->getTitulo()?></td>
-                <td><a href="">Editar</a><br>
-                <a href="http://">Eliminar</a><br>
-                <a href="http://">Borrador</a>
-                </td>
-              </tr>
-                
-              <?php endforeach;?>
-        </tbody>
-      </table>
+              
+            <?php endforeach;?>
+      </tbody>
+    </table>
+    <?php include "paginacion.view.php"; ?>
   </div>
-
-
 
   <div style="margin:auto;padding:12px 6px 36px;max-width:960px;">
     <div class="hs-docs-content-divider">
@@ -121,6 +132,7 @@
     </div>
   </div>
   <script src="<?= ruta ?>js/editor.js"></script>
+  <script src="<?= ruta ?>js/main.js"></script>
   <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script> -->
 </body>
 

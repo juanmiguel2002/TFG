@@ -6,3 +6,4 @@ function menu() {
       x.className = "navbar";
     }
 }
+

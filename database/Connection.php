@@ -12,7 +12,7 @@ class Connection
         //Creamos la conexion
         
         /*Una de las grandes ventajas de PDO es que cuando se produce un error provoca una excepción en lugar de un error,
-        por tanto, las ppodemos capturar*/
+        por tanto, las podemos capturar*/
         try
         {
             $opciones = [
@@ -47,7 +47,6 @@ class Connection
         
         return $connection;
     }
-
 }
 
 ?>

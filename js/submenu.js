@@ -1,3 +1,5 @@
+
+// MENU DEL PANEL DEL CONTROL DEL ADMIN
 const $dropdown = $(".dropdown");
 const $dropdownToggle = $(".dropdown-toggle");
 const $dropdownMenu = $(".dropdown-menu");
