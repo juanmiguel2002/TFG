@@ -1,14 +1,13 @@
-
-
-<nav>
-  <div>
+<div>
     <!-- <div class="col-xs-12 col-sm-6">
       <p>Mostrando <?php //echo $registros_por_pagina ?> de <?php //echo $total_registros ?> Artículs Disponibles</p>
     </div> -->
     <div class="col-xs-12 col-sm-6">
       <p>Página <?php echo $pagina_actual ?> de <?php echo $total_paginas ?> </p>
     </div>
-  </div>
+</div>
+<nav>
+  
   <ul class="pagination">
   <?php 
   $id = "";

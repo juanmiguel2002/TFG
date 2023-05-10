@@ -6,7 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="<?=ruta?>css/style.css" rel="stylesheet" type='text/css'/>
   <link href="<?=ruta?>css/menu.css" rel="stylesheet" type='text/css'/>
-  <link href="<?=ruta?>css/buscador.scss" rel="stylesheet" type='text/css'/>
 
   <!-- Fuentes de letra -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -33,9 +32,9 @@
         <li class="nav-item"><a href="#" class="nav-link">Destacats</a></li>
         <li class="nav-item"><a href="<?=ruta?>views/contacto.view.php" class="nav-link">Contacte</a></li>
         <li class="nav-item"><a href="<?=ruta?>views/login.view.php" class="nav-link">Admin</a></li>
-      
+
       </ul>
-      <fieldset class="field-container right">
+      <fieldset class="field-container">
         <input type="text" placeholder="Buscar..." class="field" />
         <div class="icons-container">
           <div class="icon-search"></div>

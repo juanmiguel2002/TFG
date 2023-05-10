@@ -1,19 +1,15 @@
 <!--VISTA DE LOS ARTICULOS QUE PASAMOS EL ID DEL TEMA SELECCIONADO FALLO AL HACER LA PAGINACIÓN-->
 <?php
-  //session_start();
   
   require_once 'partials/inicio_partial.php';
   require_once "../database/base_de_datos.php";
   require_once '../utils/classes/articulo.php';
   require_once '../utils/classes/Paginacion.php'; 
 
-  //print_r($_SERVER['REQUEST_URI']);
 
-  $temas = $_GET['id'];
-  // $page = $_GET['pagina'];
+  $temas = $_GET['id'];//recogemos el id del tema para sacar los articulos del tema pasado
 
   $sentencia = $pdo->query("SELECT count(*) AS conteo FROM v_articulos where fk_temas = $temas");
-
   $total_registros = $sentencia->fetchObject()->conteo;
 
   $registros_por_pagina = 100; #Cuántos registros mostrar por página
@@ -35,10 +31,11 @@
   $sentencia = $pdo->prepare("SELECT id, titulo, fecha, concat(substr(texto,1,255),'...') as texto, tema, imagen FROM v_articulos WHERE fk_temas = $temas order by 1 desc LIMIT ? OFFSET ?");
   $sentencia->execute([$limit, $offset]);
   $articulos = $sentencia->fetchAll(PDO::FETCH_CLASS,'articulo');
-  include "paginacion.view.php"
+  
 ?>
 
 <main class="row">
+  <?php include "paginacion.view.php";?>
   <section class="leftcolumn"> 
     <?php foreach ($articulos as $articulo) :?>
     <article class="card">
@@ -47,7 +44,7 @@
         <div class="fakeimg">
           <?php 
             if($articulo->getImagen() !== "sin_imagen.jpg"){
-              echo '<img class="lazy" data-src="'.ruta. $articulo->getUrlGallery() .'" alt="'.$articulo->getImagen() .'" style="width: 50%; "/>';
+              echo '<img class="lazy" data-src="'.ruta. $articulo->getUrlGallery() .'" alt="'.$articulo->getImagen() .'"   "/>';
             }
           ?>
         </div>
