@@ -20,7 +20,7 @@ try {
     //$mail->Host = gethostbyname('smtp.gmail.com');            // Si hay problemas con SMTP en IPv6
     $mail->SMTPAuth= true;                                   // Enable SMTP authentication
     $mail->Username = 'juanmi0802@gmail.com';          // SMTP username
-    $mail->Password = 'Juanmivero812';                                     // SMTP password
+    $mail->Password = 'juanmivero812';                                     // SMTP password
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable implicit TLS encryption
     //$mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            // Enable implicit SSL encryption
     $mail->Port = 587;                                    // TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
@@ -47,12 +47,21 @@ try {
 
     //Content
     $mail->isHTML(true);                                  // Set email format to HTML
-    $mail->Subject = 'Colaborar o aportar de '. $_SESSION['nom'];                                  // Set email subject
-    $mail->Body = $_SESSION['texto'] . '<br><strong><br>Gracias por contar con nosotros</strong>';   // Set email body
+    $mail->Subject = 'Colaboció o aport de '. $_SESSION['nom'];                                  // Set email subject
+    $mail->Body = $_SESSION['texto'] . '<br><strong><br>Gracias por contar amb nosaltres</strong>';   // Set email body
     $mail->AltBody = 'Suscribete para más contenido.'; // Set alternate body in plain text for non-HTML mail clients
 
-    $mail->send();
-    echo "Les dades estan enviades";
+    // $mail->send();
+    if ($mail->Send()) {
+        echo'<script type="text/javascript">
+               alert("Enviado Correctamente");
+            </script>';
+        header('../../index.php');
+    } else {
+        echo'<script type="text/javascript">
+               alert("NO ENVIADO, intentar de nuevo");
+            </script>';
+    }
 } catch (Exception $e) {
     echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
 }
