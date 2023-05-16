@@ -21,18 +21,7 @@
     <h1 class="ti tulo">Cronista de Gata de Gorgos</h1>
   </header>
 
-  <nav class="navbar navbar-expand-lg">
-    <a class="navbar-brand" href="<?=ruta?>index.php"><img class="logo" src="<?=ruta?>img/logo1.png" width="69" alt="CronistadeGata"/></a>	
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
-      aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="fa fa-bars"></span> Menu
-    </button>
-    <div class="collapse navbar-collapse" id="ftco-nav">
-      <ul class="navbar-nav">
-        <li class="nav-item active"><a href="<?=ruta?>index.php" class="nav-link">Home</a></li>
-      </ul>                            
-    </div>
-  </nav>
+  
 
   <main class="container">
     <section class="content">
