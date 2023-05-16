@@ -291,11 +291,11 @@
   
   .nav-item {
     -ms-flex-preferred-size: 0;
-    flex-basis: 0;
+    /* flex-basis: 0; */
     -webkit-box-flex: 1;
     -ms-flex-positive: 1;
     flex-grow: 1;
-    /* text-align: center; */
+    text-align: center; 
   }
   
   .navbar {
@@ -673,7 +673,7 @@
     border-radius: 0px;
   }
   
-  @media (max-width: 767.98px) {
+  /* @media (max-width: 767.98px) {
      .navbar-nav>.nav-item.cta>a {
       padding-left: 15px;
       padding-right: 15px;
@@ -686,7 +686,7 @@
       background: #fc7fb2;
       border-radius: 4px;
     }
-  }
+  } */
   
   @media (max-width: 991.98px) {
      .navbar-nav>.nav-item.active>a {
@@ -707,3 +707,44 @@
    .navbar-toggler:focus {
     outline: none !important;
   }
+
+/* buscardor */
+
+.searchform input[type="text"] {
+  width: 78%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Style the submit button */
+.searchform button[type="submit"] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Add a hover effect to the submit button */
+.searchform button[type="submit"]:hover {
+  background-color: #45a049;
+}
+
+/* Add styles for when the input field has focus */
+.searchform input[type="text"]:focus {
+  border: 2px solid #4CAF50;
+  outline: none;
+}
+
+/* Center the search icon inside the submit button */
+.searchform button[type="submit"] i {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 5px;
+}
+
