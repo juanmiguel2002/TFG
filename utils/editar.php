@@ -19,7 +19,6 @@ if (!isset($_POST['id'])) {
 
 }
 
-
 if (isset($_POST['subir'])) { //comprobamos si ha apretado el boton de enviar 
 
   $titulo = $_POST['titulo'];
@@ -30,7 +29,7 @@ if (isset($_POST['subir'])) { //comprobamos si ha apretado el boton de enviar
 
   if ($sentencia) {
     $exito = "Datos actualizados correctamente";
-    header('Location:'. ruta);
+    header('Location:'."../views/articulo.view.php?id=". $id);
   } else {
     $error  = "No se pudieron actualizar los datos";
   }
@@ -66,7 +65,7 @@ if (isset($_POST['subir'])) { //comprobamos si ha apretado el boton de enviar
       <!-- untuk memasukkan data -->
       <div class="card">
         
-        <div class="card-header">
+        <div class="card-header"><a class="btn btn-primary" href="javascript:history.back();" role="button">Atras</a>
           Editar Artícle
         </div>
         <div class="card-body">
@@ -104,7 +103,8 @@ if (isset($_POST['subir'])) { //comprobamos si ha apretado el boton de enviar
             </div>
 
             <div class="col-12">
-              <input type="submit" name="subir" value="Aceptar" class="btn btn-primary" />
+            <a class="btn btn-primary" href="javascript:history.back();" role="button">Atras</a>
+              <input type="submit" name="subir" value="Publicar" class="btn btn-success" />
             </div>
           </form>
         </div>
