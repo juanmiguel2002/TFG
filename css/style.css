@@ -22,10 +22,22 @@ body {
 h2{
   font-family: var(--fuenteTitulo);
 }
+.contador {
+  float: right;
+  clear: both;
+  background-color: var(--grisClaro);
+  color: var(--negro);
+  margin-top: 5px;
+  padding: 0px 8px;
+  border-radius: 4px;
+  font-size: larger;
+}
+
 h4 {
   text-align: center;
   font-size: large;
 }
+
 .link{
   text-decoration: none;
 }
@@ -340,4 +352,40 @@ ul {
 
 .hiden {
   display: none;
-} 
+}
+
+/* contador visitas */
+.card .stat {
+  text-align: center;
+}
+
+.card .stat-count {
+  font-size: 2em;
+  font-weight: bold;
+}
+
+.card .stat-detail {
+  font-size: 1.2em;
+}
+/* .stat {
+	padding:15px 5px;
+	background:#336699;
+	text-align: center;
+	float:left;
+}
+.stat-count {
+	font-size: 51px;
+	font-weight: normal;
+	letter-spacing: -0.02em;
+	line-height: 1.2;
+	margin-bottom: 20px;
+	overflow:hidden;
+	font-family:"Georgia", Courier, monospace;
+	padding: 0;
+	position: relative;
+}
+.stat-detail {
+	color:#fff;
+	padding-top: 10px;
+	font: italic 1.3rem/1.75 "Georgia", Courier, monospace;
+} */
