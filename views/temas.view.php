@@ -1,18 +1,18 @@
 <!--VISTA DE LOS ARTICULOS QUE PASAMOS EL ID DEL TEMA SELECCIONADO FALLO AL HACER LA PAGINACIÓN-->
 <?php
-  
-  require_once 'partials/inicio_partial.php';
+  //define('ruta', 'http://localhost/CronistaGata/');
   require_once "../database/base_de_datos.php";
   require_once '../utils/classes/articulo.php';
   require_once '../utils/classes/Paginacion.php'; 
-
+  require_once '../utils/classes/contador.php'; 
+  require_once 'partials/inicio_partial.php';
 
   $temas = $_GET['id'];//recogemos el id del tema para sacar los articulos del tema pasado
 
   $sentencia = $pdo->query("SELECT count(*) AS conteo FROM v_articulos where fk_temas = $temas");
   $total_registros = $sentencia->fetchObject()->conteo;
 
-  $registros_por_pagina = 100; #Cuántos registros mostrar por página
+  $registros_por_pagina = 40; #Cuántos registros mostrar por página
   $pagina_actual = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
 
   $paginas_a_mostrar = 10;
@@ -35,7 +35,7 @@
 ?>
 
 <main class="row">
-  <?php include "paginacion.view.php";?>
+<?php //include "paginacion.view.php";?>
   <section class="leftcolumn"> 
     <?php foreach ($articulos as $articulo) :?>
     <article class="card">
