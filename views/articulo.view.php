@@ -1,10 +1,16 @@
 <!--VISTA DE LOS ARTICULOS QUE PASAMOS EL ID DEL ARTICULO SELECCIONADO-->
 <?php
+ //define('ruta', 'http://localhost/CronistaGata/');
   require_once 'partials/inicio_partial.php';
   require_once "../database/base_de_datos.php";
   require_once '../utils/classes/articulo.php';
+  require_once '../utils/classes/contador.php';
 
   $id = $_GET['id'];
+  $contador = new Contador($pdo);
+  $contador->incrementarVisitas($id);
+  // Obtiene el número de visitas del artículo actual
+  $visitas = $contador->obtenerVisitas($id);
 
   $sentencia = $pdo->prepare("SELECT * FROM v_articulos WHERE id = $id");
   $sentencia->execute();
@@ -14,15 +20,20 @@
     include("./utils/404.php");
     exit();
   }
-?>
+?>  
 
 <main class="row">
     <section class="leftcolumn"> 
-      <article class="card">
-        <?php foreach($articulos as $articulo) :?>
+    <?php foreach($articulos as $articulo) :?>
+      
+        
+          <article class="card">
+          <strong class="contador"> <?=$contador->obtenerVisitas($articulo->getId()) . " visites"?></strong> 
           <strong class="date"><?= $articulo->getFecha()?></strong>
+          
           <div class="cartel">
-          <h2><?= $articulo->getTitulo() ?></h2>
+            
+          <h2><?= $articulo->getTitulo()?></h2>
             <strong class="temas">en <a class="link" href="<?= ruta.'views/temas.view.php?id='.$articulo->getFk_temas()?>" title="<?= $articulo->getTema(); ?>"><?= $articulo->getTema(); ?></a></strong>
           </div><br>
           <div class="fakeimg"> 

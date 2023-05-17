@@ -1,6 +1,6 @@
 <?php
 define('ruta', 'http://localhost/CronistaGata/');
-include '../utils/acciones.php';
+
 require_once '../database/base_de_datos.php';
 require_once 'classes/articulo.php';
 
@@ -10,31 +10,32 @@ $exito = "";
 $error = "";
 $texto = "";
 
-if (!isset($_POST['id'])) {
+if (isset($_GET['id'])) {
   $id = $_GET['id'];
   $sentencia = $pdo->prepare("SELECT * from v_articulos where id = '$id'"); //SELECCIONAMOS TODOS LOS TEMAS.
   $sentencia->execute();
   $articulos = $sentencia->fetchAll(PDO::FETCH_CLASS, 'articulo');
   $titulo = $articulos[0]->getTitulo();
+  
+  if (isset($_POST['subir'])) { //comprobamos si ha apretado el boton de enviar 
 
-}
-
-if (isset($_POST['subir'])) { //comprobamos si ha apretado el boton de enviar 
-
-  $titulo = $_POST['titulo'];
-  $temes = $_POST['temes'];
-  $texto = $_POST['texto'];
-  $sentencia = $pdo->prepare("UPDATE v_articulos set titulo = '$titulo', texto='$texto' where id = '$id'");
-  $sentencia->execute();
-
-  if ($sentencia) {
-    $exito = "Datos actualizados correctamente";
-    header('Location:'."../views/articulo.view.php?id=". $id);
+    $titulo = $_POST['titulo'];
+    $temes = $_POST['temes'];
+    $texto = $_POST['texto'];
+    $sentencia = $pdo->prepare("UPDATE v_articulos set titulo = '$titulo', texto='$texto' where id = '$id'");
+    $sentencia->execute();
+  
+    if ($sentencia) {
+      $exito = "Datos actualizados correctamente";
+      header('Location:'."../views/articulo.view.php?id=". $id);
+    } else {
+      $error  = "No se pudieron actualizar los datos";
+    }
   } else {
-    $error  = "No se pudieron actualizar los datos";
+    $error = "Por favor ingresa todos los datos";
   }
-} else {
-  $error = "Por favor ingresa todos los datos";
+}else{
+  echo 'No se ha pasado el id';
 }
 
 ?>
@@ -45,7 +46,7 @@ if (isset($_POST['subir'])) { //comprobamos si ha apretado el boton de enviar
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Datos del Empleado</title>
+  <title>Editar Article</title>
   <link href="../css/panelc.css" rel="stylesheet" type='text/css' />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
   <style>

@@ -1,4 +1,5 @@
-<?php define('ruta','http://localhost/CronistaGata/'); ?>
+<?php define('ruta','http://localhost/CronistaGata/'); 
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,7 +21,7 @@
   <header>
     <h1 class="titulo">Cronista de Gata de Gorgos</h1>
   </header>
-  <nav class="navbar">
+  <nav class="navbar navbar-expand-lg">
     <a class="navbar-brand" href="<?=ruta?>index.php"><img class="logo" src="<?=ruta?>img/logo1.png" width="69" alt="CronistadeGata"/></a>	
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
       aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
@@ -28,26 +29,18 @@
     </button>
     <div class="collapse navbar-collapse" id="ftco-nav">
       <ul class="navbar-nav">
-        <li class="nav-item active"><a href="<?=ruta?>index.php" class="nav-link">Home</a></li>
-        <li class="nav-item"><a href="#" class="nav-link">Destacats</a></li>
+        <li class="nav-item active"><a href="<?=ruta?>" class="nav-link">Home</a></li>
+        <li class="nav-item"><a href="<?=ruta?>views/mas.visitado.php" class="nav-link">Més Visitats</a></li>
         <li class="nav-item"><a href="<?=ruta?>views/contacto.view.php" class="nav-link">Contacte</a></li>
         <li class="nav-item"><a href="<?=ruta?>views/login.view.php" class="nav-link">Admin</a></li>
-
       </ul>
-      <fieldset class="field-container">
-        <input type="text" placeholder="Buscar..." class="field" />
-        <div class="icons-container">
-          <div class="icon-search"></div>
-          <div class="icon-close">
-            <div class="x-up"></div>
-            <div class="x-down"></div>
-          </div>
+      <div class="searchform order-lg-last">
+        <div class="form-group d-flex">
+          <input type="text" class="form-control pl-3" name="campo" id="campo" placeholder="Buscar" >
+           <button type="submit" placeholder="" class="form-control search"><span class="fa fa-search"></span></button>
         </div>
-      </fieldset>
-      <!-- <form class="form-inline right">
-          <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Buscar">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
-        </form>                          -->
+      </div>
+      
     </div>
   </nav>
   <a class="ir-arriba" javascript:void(0) title="Volver arriba">
@@ -57,3 +50,4 @@
     </span>
   </a>
   <script src="<?= ruta ?>js/jquery.min.js"></script>
+</nav>

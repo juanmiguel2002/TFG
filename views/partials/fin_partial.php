@@ -3,7 +3,11 @@
   $sentencia = $pdo->prepare("SELECT * FROM temas"); //SELECCIONAMOS TODOS LOS TEMAS.
   $sentencia->execute();
   $articulos = $sentencia->fetchAll(PDO::FETCH_CLASS, 'articulo');
-  $page = 1;
+  
+  $contador = new Contador($pdo);
+  // Obtiene el número total de visitas para todos los artículos
+  $total_visitas = $contador->obtenerTotalVisitas();
+  
 ?>
 
   <section class="rightcolumn">
@@ -31,6 +35,15 @@
         ?>
     
       </ul>
+
+    </article>
+    <!-- CONTADOR DE VISITAS -->
+    <article class="card">
+      <div class="stat">
+        <h3>TOTAL de Visites:</h3><br>
+        <span class="stat-count"><?= $total_visitas ?></span>
+        <p class="stat-detail">Visites</p>
+      </div>
     </article>
 
     <article class="card">
@@ -74,9 +87,9 @@
     </p>
     <button class="button">Aceptar</button>
   </div>
-
   <script src="<?= ruta ?>js/main.js"></script>
-  <script src="<?= ruta ?>js/cargando.js"></script>
+  <script src="<?= ruta ?>js/cookies.js"></script>
+  <!-- <script src="js/load.js"></script> -->
   <script src="<?= ruta ?>js/popper.js"></script>
   <script src="<?= ruta ?>js/bootstrap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>

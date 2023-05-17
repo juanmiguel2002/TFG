@@ -1,6 +1,5 @@
 <?php 
   define('ruta','http://localhost/CronistaGata/'); 
-  require '../database/Connection.php';
 ?>
 
 <!DOCTYPE html>
@@ -11,17 +10,32 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
   <link href="<?=ruta?>css/contact.css" rel="stylesheet" type='text/css'/>
   <link href="<?=ruta?>css/menu.css" rel="stylesheet" type='text/css'/>
-  <link rel="shortcut icon" href="<?=ruta?>img/periodic1.jpg" type="image/jpg"/>
+  <link rel="shortcut icon" href="<?= ruta?>img/periodic1.jpg" type="image/jpg"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 </head>
 
 <body>
   <header>
-    <h1 class="ti tulo">Cronista de Gata de Gorgos</h1>
+    <h1 class="titulo">Cronista de Gata de Gorgos</h1>
   </header>
 
-  
+  <nav class="navbar navbar-expand-lg">
+    <!-- <a class="navbar-brand" href="<?=ruta?>index.php"><img class="logo" src="<?=ruta?>img/logo1.png" width="69" alt="CronistadeGata"/></a>	 -->
+    <a href="javascript:history.back()" class="btn btn-default">
+      <span class="glyphicon glyphicon-chevron-left"></span> Volver
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
+      aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="fa fa-bars"></span> Menu
+    </button>
+    <div class="collapse navbar-collapse" id="ftco-nav">
+      <ul class="navbar-nav">
+        <li class="nav-item active"><a href="<?=ruta?>index.php" class="nav-link">Home</a></li>
+      </ul>                            
+    </div>
+  </nav>
 
   <main class="container">
     <section class="content">
@@ -49,7 +63,7 @@
         <p>Si vols colaborar o aportar alguna informació/imatges no duptes en contactar en el Cronistadegata.</p>
         <form action="<?=$_SERVER['PHP_SELF']?>" method="POST" enctype="multipart/form-data">
         <div class="input-box">
-          <input type="text" placeholder="Nom" name="nom">
+          <input type="text" placeholder="Nom" name="nom" required>
         </div>
         <div class="input-box">
           <input type="email" placeholder="Email" required name="email">
@@ -58,28 +72,31 @@
             <textarea rows="4" cols="50" placeholder="text" name="texto"></textarea>
         </div>
         <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="1" name="check"> Acepta les Condicions 
+          <input class="form-check-input" type="checkbox" value="1" name="check" required> Acepta les Condicions 
         </div>
-        
+
         <div class="button">
           <input type="submit" value="Enviar" >
         </div>
       </form>
       <?php
-      if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $_SESSION['nom'] = $_POST['nom'];
-        $_SESSION['email'] = $_POST['email'];
-        $_SESSION['texto'] = $_POST['texto'];
-        
-        require_once '../utils/classes/enviarMail.php';
-      }
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+          $_SESSION['nom'] = $_POST['nom'];
+          $_SESSION['email'] = $_POST['email'];
+          
+          if (isset($_SESSION['email']) && isset($_SESSION['nom'])) {
+            # insertamos los datos en la bbdd de suscripciones / para guardar la info de quien contacta
+          }
+            
+          require_once '../utils/classes/enviarMail.php';
+        }
       ?>
     </article>
     </section>
   </main>
 
   <footer class="container">
-    <h4>© Copyright 2022-2023<a href="../index.php">Cronistadegata</a> | By Juanmi</h4>
+    <h4 class="text-center">© Copyright 2022-2023 <a href="../index.php"> Cronistadegata</a> | By Juanmi</h4>
   </footer>
   <script src="<?=ruta?>js/jquery.min.js"></script>
 	<script src="<?=ruta?>js/popper.js"></script>

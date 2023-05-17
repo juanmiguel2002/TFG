@@ -1,4 +1,5 @@
 <?php
+//define('ruta', 'http://localhost/CronistaGata/');
 //abres una session
 session_start();
 // función para hacer el saludo cordial.
@@ -39,7 +40,7 @@ $formulas = array(
             <div class="container align-self-center p-6">
                 <h1 class="font-weight-bold mb-3"><?= buenosque($formulas) ?> Cronista <strong>Oficial de GATA de GORGOS</strong></h1>
                 <p id="mensaje"></p>
-                <form action="panelControl.php" method="POST" enctype="multipart/form-data" id="form">
+                <form action="../utils/panelControl.php" method="POST" enctype="multipart/form-data" id="form">
                     <div class="form-group mb-3">
                         <label class="font-weight-bold">Correo electrónico <span class="text-danger">*</span></label>
                         <input type="email" class="form-control" name="email" placeholder="Introdueix el teu correu" id="email">

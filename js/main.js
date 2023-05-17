@@ -26,48 +26,6 @@ function irArriba(){
   });
   $('.ir-abajo').click(function(){ $('body,html').animate({ scrollTop:'1000px' },1000); });
 }
-
-
-//COOKIES
-(() => {
-    const getCookie = (name) => {
-      const value = " " + document.cookie;
-      const parts = value.split(" " + name + "=");
-      return parts.length < 2 ? undefined : parts.pop().split(";").shift();
-    };
-  
-    const setCookie = function (name, value, expiryDays, domain, path, secure) {
-      const exdate = new Date();
-      exdate.setHours(
-        exdate.getHours() +
-          (typeof expiryDays !== "number" ? 365 : expiryDays) * 24
-      );
-      document.cookie =
-        name +
-        "=" +
-        value +
-        ";expires=" +
-        exdate.toUTCString() +
-        ";path=" +
-        (path || "/") +
-        (domain ? ";domain=" + domain : "") +
-        (secure ? ";secure" : "");
-    };
-  
-    const $cookiesBanner = document.querySelector(".cookies");
-    const $cookiesBannerButton = $cookiesBanner.querySelector("button");
-    const cookieName = "cookiesBanner";
-    const hasCookie = getCookie(cookieName);
-  
-    if (!hasCookie) {
-      $cookiesBanner.classList.remove("hiden");
-    }
-  
-    $cookiesBannerButton.addEventListener("click", () => {
-      setCookie(cookieName, "closed");
-      $cookiesBanner.remove();
-    });
-  })();
  
   //Cargando
   document.addEventListener("DOMContentLoaded", function() {
@@ -92,21 +50,21 @@ function irArriba(){
 });
 
 // BUSCADOR
-$(document).on('ready', function() {
+// $(document).on('ready', function() {
   
-  $('.field').on('focus', function() {
-    $('body').addClass('is-focus');
-  });
+//   $('.field').on('focus', function() {
+//     $('body').addClass('is-focus');
+//   });
   
-  $('.field').on('blur', function() {
-    $('body').removeClass('is-focus is-type');
-  });
+//   $('.field').on('blur', function() {
+//     $('body').removeClass('is-focus is-type');
+//   });
   
-  $('.field').on('keydown', function(event) {
-    $('body').addClass('is-type');
-    if((event.which === 8) && $(this).val() === '') {
-      $('body').removeClass('is-type');
-    }
-  });
+//   $('.field').on('keydown', function(event) {
+//     $('body').addClass('is-type');
+//     if((event.which === 8) && $(this).val() === '') {
+//       $('body').removeClass('is-type');
+//     }
+//   });
   
-});
+// });

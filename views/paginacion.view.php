@@ -11,6 +11,7 @@
   <ul class="pagination">
   <?php 
   $id = "";
+  $q = "";
   if (isset($temas)){
 
     $id = "&id=". $temas;

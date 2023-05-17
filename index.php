@@ -1,14 +1,15 @@
 <?php
+   //define('ruta', 'http://localhost/CronistaGata/');
 
-  include_once "views/partials/inicio_partial.php";
   require_once "database/base_de_datos.php"; # Incluimos la conexión
   require_once 'utils/classes/articulo.php';
   require_once 'utils/classes/Paginacion.php'; 
+  require_once 'utils/classes/contador.php';
 
   $sentencia = $pdo->query("SELECT count(*) AS conteo FROM articulos");
   $total_registros = $sentencia->fetchObject()->conteo;
 
-  $registros_por_pagina = 50; #Cuántos registros mostrar por página
+  $registros_por_pagina = 40; #Cuántos registros mostrar por página
   $pagina_actual = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
 
   $paginas_a_mostrar = 10;
@@ -28,6 +29,7 @@
   $sentencia->execute([$limit, $offset]);
   $articulos = $sentencia->fetchAll(PDO::FETCH_CLASS,'articulo');
 
+  include_once "views/partials/inicio_partial.php";
 ?>
     <main class="row">
         <?php include 'views/articulos.view.php'; ?>
