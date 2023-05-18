@@ -16,7 +16,7 @@
   $registros_por_pagina = 50; #Registros mostrar por página.
   $pagina_actual = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
 
-  $paginas_a_mostrar = 15;
+  $paginas_a_mostrar = 15; # paginas a mostrar 
   $paginacion = new Paginacion($total_registros, $registros_por_pagina, $pagina_actual, $paginas_a_mostrar);
   $offset = $paginacion->getOffset(); # El offset es saltar X productos que viene dado por multiplicar la página - 1 * los productos por página
   
@@ -25,13 +25,14 @@
   $pagina_actual = $paginacion->getPaginaActual();
   $paginas_a_mostrar = $paginacion->getPaginasAMostrar();
 
-  $rango_inicio = max($pagina_actual - floor($paginas_a_mostrar / 2), 1);
-  $rango_fin = min($rango_inicio + $paginas_a_mostrar - 1, $total_paginas);
+  $rango_inicio = max($pagina_actual - floor($paginas_a_mostrar / 2), 1);# calculamos el rango de inicio
+  $rango_fin = min($rango_inicio + $paginas_a_mostrar - 1, $total_paginas); # calculamos el final de la paginación
   
     # Ahora obtenemos los productos usando ya el OFFSET y el LIMIT
   $sentencia = $pdo->prepare("SELECT DISTINCT id, titulo, fecha, tema FROM v_articulos order by 1 desc LIMIT ? OFFSET ?");
   $sentencia->execute([$limit, $offset]);
   $articulos = $sentencia->fetchAll(PDO::FETCH_CLASS,'articulo');
+  
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -47,7 +48,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">  
 </head>
 
-<body style="padding-bottom:2px;align-items:center">
+<body style="padding-bottom:4px;align-items:center">
   <header>
     <nav class="navbar navbar-inverse">
       <div class="container-fluid">
@@ -82,12 +83,11 @@
   </header>
   <!-- CONTENEDOR DONDE SE MOSTRARAN TODOS LOS ARTICULOS -->
   <div class="container">
-    <div class="form-inline my-2 my-lg-0" >
-      <input class="form-control mr-sm-2" type="text" name="campo" id="campo" placeholder="Buscar">
-      
-      <!-- <button class="btn btn-outline-success my-2 my-sm-0">Buscar</button> -->
-    </div>
-    <table class="table table-responsive" >
+    <div class="form-inline">
+      <!-- <input class="form-control mr-sm-2" type="text" name="campo" id="campo" placeholder="Buscar">
+     <button class="btn btn-outline-success my-2 my-sm-0">Buscar</button>
+    </div> -->
+    <table class="table table-responsive">
       <thead>
           <tr>
               <th>Data</th>
@@ -97,27 +97,40 @@
       </thead>
       <tbody>
         <?php 
-          foreach ($articulos as $articulo) : ?>
+          foreach ($articulos as $articulo) : $id = $articulo->getId(); ?>
+
           <tr>
             <td><?=$articulo->getFecha()?></td>
             <td><?=$articulo->getTitulo()?>
               <br><strong><i>Publicat en <?= $articulo->getTema()?></i></strong>
             </td>
-            <td>
-            <a href="editar.php?id=<?= $articulo->getId() ?>"><button type="button" class="btn btn-warning">Editar</button></a>
-            <a href="eliminar.php?id=<?= $articulo->getId() ?>" onclick="return confirm('Vols eliminar l`article?')"><button type="button" class="btn btn-danger">Eliminar</button></a>      
-            <a href="borrador.php?id=<?= $articulo->getId()?>" class="btn btn-secondary">Borrador</a>
+            <td class="">
+            <?php 
+              $sentencia = $pdo->prepare("SELECT borrador from articulos where id = :id");
+              $sentencia->bindParam(':id', $id);
+      
+              if($sentencia->execute()){
+                $borrador = $sentencia->fetch(PDO::FETCH_ASSOC);
+                $_SESSION['borrador'] = $borrador['borrador'];
+                if ($borrador['borrador'] != 1) { ?>
+                  <a href="editar.php?id=<?= $articulo->getId() ?>" class="btn btn-warning" role="button">Editar</a>
+                <?php }else{ ?>
+                  <a href="editar.php?id=<?= $articulo->getId()?>"  role="button"><button class="btn btn-dark">Borrador</button></a>
+                <?php  
+                  }
+              }
+            ?>
+            <a href="eliminar.php?id=<?= $articulo->getId()?>" onclick="return confirm('Vols eliminar l`article?')" class="btn btn-danger" role="button">Eliminar</a> 
             </td>
           </tr>
           <?php endforeach;?>
       </tbody>
     </table>
-    <?php include "paginacion.view.php"; ?>
+    <?php include "../views/paginacion.view.php"; ?>
   </div>
   
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> 
   <script src="<?= ruta ?>js/main.js"></script>
-  <!-- <script src="<?= ruta ?>js/load.js"></script> -->
 </body>
 </html>
