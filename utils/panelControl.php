@@ -59,7 +59,6 @@
           <li class="active"><a href="panelControl.php">Home</a></li>
           <li><a href="nuevo.articulo.php">Escriu nou</a></li>
           <li><a href="temas.php">Temes</a></li>
-          <li><a href="../views/borradors.view.php">Borradors</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <li>
