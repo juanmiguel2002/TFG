@@ -4,7 +4,7 @@ define('ruta', 'http://localhost/CronistaGata/');
 require_once '../database/base_de_datos.php';
 require_once 'classes/articulo.php';
 
-// $titulo = "";
+$titulo = "";
 $temes = "";
 $exito = "";
 $error = "";
@@ -16,23 +16,28 @@ if (isset($_GET['id'])) {
   $sentencia->execute();
   $articulos = $sentencia->fetchAll(PDO::FETCH_CLASS, 'articulo');
   $titulo = $articulos[0]->getTitulo();
+  $temes = $articulos[0]->getFk_temas();
   
   if (isset($_POST['subir'])) { //comprobamos si ha apretado el boton de enviar 
-
+    
     $titulo = $_POST['titulo'];
-    $temes = $_POST['temes'];
+    
     $texto = $_POST['texto'];
+    if (isset($_SESSION['borrador'])) {
+      $borrador = $_SESSION['borrador'];
+      echo $borrador;
+    }
     $sentencia = $pdo->prepare("UPDATE v_articulos set titulo = '$titulo', texto='$texto' where id = '$id'");
     $sentencia->execute();
   
     if ($sentencia) {
       $exito = "Datos actualizados correctamente";
-      header('Location:'."../views/articulo.view.php?id=". $id);
+      header('Refresh:5;Location:'."../views/articulo.view.php?id=". $id);
     } else {
       $error  = "No se pudieron actualizar los datos";
     }
   } else {
-    $error = "Por favor ingresa todos los datos";
+    $error = "Per favor edita l'article";
   }
 }else{
   echo 'No se ha pasado el id';
@@ -57,15 +62,17 @@ if (isset($_GET['id'])) {
     .card {
       margin-top: 50px;
     }
+    @media (max-width: 576px) {
+      .mx-auto {
+        width: 100%;
+      }
+    }
   </style>
 </head>
 
 <body>
-  <header>
     <div class="mx-auto">
-      <!-- untuk memasukkan data -->
-      <div class="card">
-        
+      <div class="card"> 
         <div class="card-header"><a class="btn btn-primary" href="javascript:history.back();" role="button">Atras</a>
           Editar Artícle
         </div>
@@ -89,9 +96,16 @@ if (isset($_GET['id'])) {
             <div class="mb-3 row">
               <label for="temas" class="col-sm-2 col-form-label">Temes</label>
               <div class="col-sm-10">
-                <select class="form-control" name="temes" id="temes">
+              <select class="form-control" name="temes" id="temes">
                   <option value="">- Selecciona -</option>
-                  <option value="<?= $articulos[0]->getTema() ?>" <?php if ($articulos[0]->getTema()) echo "selected" ?>><?= $articulos[0]->getTema() ?></option>
+                  <?php
+                  $sentencia = $pdo->query("SELECT * FROM temas");
+                  $sentencia->execute();
+                  $temas = $sentencia->fetchAll(PDO::FETCH_CLASS, 'articulo');
+                  foreach ($temas as $tema) :
+                  ?>
+                    <option value="<?= $tema->getId() ?>" <?php if ($temes == $tema->getId()) echo "selected" ?>><?= $tema->getTema() ?></option>
+                  <?php endforeach; ?>
                 </select>
               </div>
             </div>
