@@ -82,5 +82,6 @@ class articulo{
     {   
         return self::RUTA_IMAGENES_GALLERY . $this->getImagen();
     }
+
 }
 ?>

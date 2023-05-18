@@ -25,11 +25,11 @@ class File
 {
     private $file;
     private $fileName;
-
-    public function __construct(string $fileName, array $arrTypes)
+    private $tiposAceptados = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];//le pasamos los tipos aceptados que queremos subir
+    public function __construct(string $fileName)
     {
         $tmpFile = $_FILES[$fileName];
-
+        
         if (!isset($tmpFile) || ($tmpFile['name'] == ""))
         {
             throw new FileException('Debes seleccionar un fichero');
@@ -49,7 +49,7 @@ class File
 
             }
         }
-        elseif (in_array($tmpFile['type'], $arrTypes) === false)
+        elseif (in_array($tmpFile['type'], $this->tiposAceptados) === false)
         {
             throw new FileException('El tipo del fichero no está soportado.');
         }
@@ -75,7 +75,7 @@ class File
 
         if (is_file($ruta) === true){
             //$this->fileName = time() . '_' . $this->fileName;
-            //$this->fileName = date('Y').date('m').date('d').date('H').date('i').date('s') . '_' . $this->fileName;
+            $this->fileName = date('Y').date('m').date('d').date('H').date('i').date('s') . '_' . $this->fileName;
             $ruta = $rutaDestino . $this->fileName;
         }
 
@@ -83,6 +83,18 @@ class File
         {
             throw new FileException('No se puede mover el fichero a su destino');
         }
+    }
+
+    public function getTiposAceptados()
+    {
+        return $this->tiposAceptados;
+    }
+
+    public function setTiposAceptados($tiposAceptados)
+    {
+        $this->tiposAceptados = $tiposAceptados;
+
+        return $this;
     }
 }
 
