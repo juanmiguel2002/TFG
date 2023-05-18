@@ -25,20 +25,19 @@
   }
 
   $resultado = $pdo->query($sql);
-  $articulos = $resultado->fetchAll(PDO::FETCH_CLASS,'articulo');
+  $temas = $resultado->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html>
-
 <head>
   <title>Cronista de Gata de Gorgos</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="<?= ruta ?>css/panelc.css" rel="stylesheet" type='text/css' />
+  <link rel="shortcut icon" href="<?= ruta ?>img/periodic1.jpg" type="image/jpg" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz&display=swap" rel="stylesheet">
-  <link rel="shortcut icon" href="<?= ruta ?>img/periodic1.jpg" type="image/jpg" />
-
+  
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -52,11 +51,11 @@
           <a class="navbar-brand" href="<?= ruta ?>">CronistadeGata</a>
         </div>
         <ul class="nav navbar-nav">
-          <li class="active"><a href="../views/panelControl.php" class="btn btn-default">
+          <li class="active"><a href="panelControl.php" class="btn btn-default">
               <span class="glyphicon glyphicon-chevron-left"></span> Volver
             </a></li>
-          <li><a href="nuevo.articulo.php">Escriu nou</a></li>
-          <li><a href="temas.php">Temes</a></li>
+          <li><a href="nuevo.tema.php">Escriu nou</a></li> <!-- Podemos crear otro tema a partir de este link-->
+          <li><a href="#">Temes</a></li>
         </ul>
         
         <ul class="nav navbar-nav navbar-right">
@@ -71,37 +70,28 @@
         </ul>
       </div>
     </nav>
-    <!-- BOTON HACIA ARRIBA -->
-    <a class="ir-arriba" javascript:void(0) title="Volver arriba">
-      <span class="fa-stack">
-        <i class="fa fa-circle fa-stack-2x"></i>
-        <i class="fa fa-arrow-up fa-stack-1x fa-inverse"></i>
-      </span>
-    </a>
   </header>
-
   <!-- CONTENEDOR DONDE SE MOSTRARAN TODOS LOS TEMAS -->
   <div class="container">
     <div class="row">
-        <div class="col-md-6">
-            <a class="btn btn-primary float-left" href="nuevo.tema.php" role="button">Nuevo tema</a>
-        </div>
-        
-        <div class="col-md-6">
-            <form class="form-inline float-right">
-                <div class="form-group">
-                    <label for="orden">Ordenar por:</label>
-                    <select name="orden" id="orden" class="form-control ml-2" onchange="this.form.submit()">
-                        <option value="">Seleccione una opción</option>
-                        <?php foreach ($opciones as $valor => $texto): ?>
-                            <option value="<?php echo $valor; ?>" <?php if ($orden == $valor) echo "selected"; ?>>
-                                <?php echo $texto; ?>
-                            </option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-            </form>
-        </div>
+      <div class="col-md-6">
+          <a class="btn btn-primary float-left" href="nuevo.tema.php" role="button">Nuevo tema</a>
+      </div>
+      <div class="col-md-6">
+        <form class="form-inline float-right">
+            <div class="form-group">
+                <label for="orden">Ordenar por:</label>
+                <select name="orden" id="orden" class="form-control ml-2" onchange="this.form.submit()">
+                    <option value="">Seleccione una opción</option>
+                    <?php foreach ($opciones as $valor => $texto): ?>
+                        <option value="<?php echo $valor; ?>" <?php if ($orden == $valor) echo "selected"; ?>>
+                            <?php echo $texto; ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+        </form>
+      </div>
     </div>
 
     <table class="table table-responsive">
@@ -113,16 +103,16 @@
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($articulos as $temas): ?>
+            <?php for ($i = 0 ; $i< count($temas); $i++): ?>
                 <tr>
-                    <td><?=$temas->getId()?></td>
-                    <td><?=$temas->getTema()?></td>
+                    <td><?=$temas[$i]['id']?></td>
+                    <td><?=$temas[$i]['tema']?></td>
                     <td>
-                        <a href="editar.php?id=".<?=$temas->getFk_temas()?>>Editar</a><br>
+                        <a href="editar.php?id=".<?= $temas[$i]['id']?>>Editar</a><br>
                         <a href='#'>Eliminar</a><br>
                     </td>
                 </tr>
-            <?php endforeach;?>
+            <?php endfor;?>
         </tbody>
     </table>
 </div>
