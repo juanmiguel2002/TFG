@@ -12,11 +12,11 @@ $texto = "";
 
 if (isset($_GET['id'])) {
   $id = $_GET['id'];
-  $sentencia = $pdo->prepare("SELECT * from v_articulos where id = '$id'"); //SELECCIONAMOS TODOS LOS TEMAS.
+  $sentencia = $pdo->prepare("SELECT * from v_articulos where id = '$id'"); //SELECCIONAMOS EL ARTICULO PASADO POR EL ID.
   $sentencia->execute();
   $articulos = $sentencia->fetchAll(PDO::FETCH_CLASS, 'articulo');
-  $titulo = $articulos[0]->getTitulo();
-  $temes = $articulos[0]->getFk_temas();
+  $titulo = $articulos[0]->getTitulo(); // RECOGEMOS EL TITULO DE LA BBDD 
+  $temes = $articulos[0]->getFk_temas();// RECOGEMOS EL ID DE TEMAS DE LA BBDD 
   
   if (isset($_POST['subir'])) { //comprobamos si ha apretado el boton de enviar 
     
