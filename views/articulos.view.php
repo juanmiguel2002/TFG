@@ -9,7 +9,7 @@
       <div class="fakeimg">
         <?php
           if ($articulo->getImagen() != "sin_imagen.jpg") { //comprobamos que la imagen no esta vacia  y esta le asignamos sin_imagen.jpg
-            echo '<img class="lazy img-thumbnail" data-src="' . $articulo->getUrlGallery() . '" alt="' . $articulo->getImagen() . '"/>';
+            echo '<img loading="lazy" data-src="' . $articulo->getUrlGallery() . '" alt="' . $articulo->getImagen() . '"/>';
           }
         ?>
       </div>
