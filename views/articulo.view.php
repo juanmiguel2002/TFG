@@ -25,30 +25,28 @@
 <main class="row">
     <section class="leftcolumn"> 
     <?php foreach($articulos as $articulo) :?>
+      <article class="card">
+      <strong class="contador"> <?=$contador->obtenerVisitas($articulo->getId()) . " visites"?></strong> 
+      <strong class="date"><?= $articulo->getFecha()?></strong>
       
+      <div class="cartel">
         
-          <article class="card">
-          <strong class="contador"> <?=$contador->obtenerVisitas($articulo->getId()) . " visites"?></strong> 
-          <strong class="date"><?= $articulo->getFecha()?></strong>
-          
-          <div class="cartel">
-            
-          <h2><?= $articulo->getTitulo()?></h2>
-            <strong class="temas">en <a class="link" href="<?= ruta.'views/temas.view.php?id='.$articulo->getFk_temas()?>" title="<?= $articulo->getTema(); ?>"><?= $articulo->getTema(); ?></a></strong>
-          </div><br>
-          <div class="fakeimg"> 
-            <a href="<?= ruta .$articulo->getUrlGallery()?>" target="_blank">
-              <?php 
-                if($articulo->getImagen() !== "sin_imagen.jpg"){
-                  echo '<img src="'. ruta.$articulo->getUrlGallery() .'" alt="'.$articulo->getImagen() .'"/>';
-                }
-              ?>
-            </a>
-          </div><hr>
-          <div class="texto">
-            <p class="primero"> <?= $articulo->getTexto();?></p>
-          </div>
-        <?php endforeach;?>
+      <h2><?= $articulo->getTitulo()?></h2>
+        <strong class="temas">en <a class="link" href="<?= ruta.'views/temas.view.php?id='.$articulo->getFk_temas()?>" title="<?= $articulo->getTema(); ?>"><?= $articulo->getTema(); ?></a></strong>
+      </div><br>
+      <div class="fakeimg"> 
+        <a href="<?= ruta .$articulo->getUrlGallery()?>" target="_blank">
+          <?php 
+            if($articulo->getImagen() !== "sin_imagen.jpg"){
+              echo '<img src="'. ruta.$articulo->getUrlGallery() .'" alt="'.$articulo->getImagen() .'"/>';
+            }
+          ?>
+        </a>
+      </div><hr>
+      <div class="texto">
+        <p class="primero"> <?= $articulo->getTexto();?></p>
+      </div>
+    <?php endforeach;?>
       </article>
     </section>
 <?php include 'partials/fin_partial.php';?>
