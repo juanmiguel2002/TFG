@@ -36,13 +36,14 @@
       </ul>
       <div class="searchform order-lg-last">
         <div class="form-group d-flex">
-          <input type="text" class="form-control pl-3" name="campo" id="campo" placeholder="Buscar" >
+          <input type="text" class="form-control pl-3" name="txtbusca" id="txtbusca" placeholder="Buscar" >
            <button type="submit" placeholder="" class="form-control search"><span class="fa fa-search"></span></button>
         </div>
       </div>
       
     </div>
   </nav>
+<!-- boton hacia arriba -->
   <a class="ir-arriba" javascript:void(0) title="Volver arriba">
     <span class="fa-stack">
       <i class="fa fa-circle fa-stack-2x"></i>
