@@ -1,47 +1,44 @@
 <?php
-define('ruta', 'http://localhost/CronistaGata/');
+  // define('ruta', 'http://localhost/CronistaGata/');
 
-require_once '../database/base_de_datos.php';
-require_once 'classes/articulo.php';
+  require_once '../database/base_de_datos.php';
+  require_once 'classes/articulo.php';
 
-$titulo = "";
-$temes = "";
-$exito = "";
-$error = "";
-$texto = "";
+  $titulo = "";
+  $temes = "";
+  $exito = "";
+  $error = "";
+  $texto = "";
 
-if (isset($_GET['id'])) {
-  $id = $_GET['id'];
-  $sentencia = $pdo->prepare("SELECT * from v_articulos where id = '$id'"); //SELECCIONAMOS EL ARTICULO PASADO POR EL ID.
-  $sentencia->execute();
-  $articulos = $sentencia->fetchAll(PDO::FETCH_CLASS, 'articulo');
-  $titulo = $articulos[0]->getTitulo(); // RECOGEMOS EL TITULO DE LA BBDD 
-  $temes = $articulos[0]->getFk_temas();// RECOGEMOS EL ID DE TEMAS DE LA BBDD 
-  
-  if (isset($_POST['subir'])) { //comprobamos si ha apretado el boton de enviar 
-    
-    $titulo = $_POST['titulo'];
-    
-    $texto = $_POST['texto'];
-    if (isset($_SESSION['borrador'])) {
-      $borrador = $_SESSION['borrador'];
-      echo $borrador;
-    }
-    $sentencia = $pdo->prepare("UPDATE v_articulos set titulo = '$titulo', texto='$texto' where id = '$id'");
+  if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+    $sentencia = $pdo->prepare("SELECT * from v_articulos where id = '$id'"); //SELECCIONAMOS EL ARTICULO PASADO POR EL ID.
     $sentencia->execute();
-  
-    if ($sentencia) {
-      $exito = "Datos actualizados correctamente";
-      header('Refresh:5;Location:'."../views/articulo.view.php?id=". $id);
+    $articulos = $sentencia->fetchAll(PDO::FETCH_CLASS, 'articulo');
+    $titulo = $articulos[0]->getTitulo(); // RECOGEMOS EL TITULO DE LA BBDD 
+    $temes = $articulos[0]->getFk_temas();// RECOGEMOS EL ID DE TEMAS DE LA BBDD 
+    
+    if (isset($_POST['subir'])) { //comprobamos si ha apretado el boton de enviar 
+      
+      $titulo = $_POST['titulo'];
+      $texto = $_POST['texto'];
+
+      if (isset($_SESSION['borrador'])) {
+        $borrador = 0;
+      }
+      $sentencia = $pdo->prepare("UPDATE v_articulos set titulo = '$titulo', texto='$texto', borrador = '$borrador' where id = '$id'");
+      $sentencia->execute();
+    
+      if ($sentencia) {
+        $exito = "Datos actualizados correctamente";
+        header('Location:'."../views/articulo.view.php?id=". $id);
+      } else {
+        $error  = "No se pudieron actualizar los datos";
+      }
     } else {
-      $error  = "No se pudieron actualizar los datos";
+      $error = "Per favor edita l'article";
     }
-  } else {
-    $error = "Per favor edita l'article";
   }
-}else{
-  echo 'No se ha pasado el id';
-}
 
 ?>
 <!DOCTYPE html>
