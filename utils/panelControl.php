@@ -64,8 +64,7 @@
           <li>
           <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user dropdown"></span>Miguel</a>
             <ul class="dropdown-menu">
-              <li><a href="#">Conter</a></li>
-              <li><a href="#">Opcions</a></li>
+              <li><a href="opciones.php">Opcions</a></li>
             </ul>
           </li>
           <li><a href="../utils/CerrarSession.php"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
@@ -83,9 +82,10 @@
   <!-- CONTENEDOR DONDE SE MOSTRARAN TODOS LOS ARTICULOS -->
   <div class="container">
     <div class="form-inline">
-      <!-- <input class="form-control mr-sm-2" type="text" name="campo" id="campo" placeholder="Buscar">
-     <button class="btn btn-outline-success my-2 my-sm-0">Buscar</button>
-    </div> -->
+       <input class="form-control mr-sm-2" type="text" name="txtbusca" id="txtbusca" placeholder="Buscar">
+     <!-- <button class="btn btn-outline-success my-2 my-sm-0">Buscar</button> -->
+    </div> 
+    
     <table class="table table-responsive">
       <thead>
           <tr>
@@ -94,16 +94,16 @@
               <th>Opcions</th>
           </tr>
       </thead>
-      <tbody>
+      <tbody id="buscador">
         <?php 
           foreach ($articulos as $articulo) : $id = $articulo->getId(); ?>
 
           <tr>
             <td><?=$articulo->getFecha()?></td>
             <td><?=$articulo->getTitulo()?>
-              <br><strong><i>Publicat en <?= $articulo->getTema()?></i></strong>
+              <br /><strong><i>Publicat en <?= $articulo->getTema()?></i></strong>
             </td>
-            <td class="">
+            <td>
             <?php 
               $sentencia = $pdo->prepare("SELECT borrador from articulos where id = :id");
               $sentencia->bindParam(':id', $id);
@@ -114,7 +114,7 @@
                 if ($borrador['borrador'] != 1) { ?>
                   <a href="editar.php?id=<?= $articulo->getId() ?>" class="btn btn-warning" role="button">Editar</a>
                 <?php }else{ ?>
-                  <a href="editar.php?id=<?= $articulo->getId()?>"  role="button"><button class="btn btn-dark">Borrador</button></a>
+                  <a href="editar.php?id=<?= $articulo->getId()?>" role="button"><button class="btn btn-dark">Borrador</button></a>
                 <?php  
                   }
               }
@@ -125,9 +125,29 @@
           <?php endforeach;?>
       </tbody>
     </table>
+    
     <?php include "../views/paginacion.view.php"; ?>
   </div>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> 
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script>
+		$(document).ready(function(){
+			$("#txtbusca").keyup(function(){
+				var parametros="txtbusca="+$(this).val()
+				$.ajax({
+            data:  parametros,
+            url:   '<?= ruta ?>utils/buscador_admin.php',
+            type:  'post',
+            beforeSend: function () { },
+            success:  function (response) {                	
+                $("#buscador").html(response);
+            },
+            error:function(){
+              alert("error")
+            }
+        });
+			})
+		})
+	</script>
 </body>
 </html>

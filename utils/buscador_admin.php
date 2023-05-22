@@ -32,30 +32,36 @@ if(isset($_POST['txtbusca'])):
     $articulos = $sentencia->fetchAll(PDO::FETCH_CLASS,'articulo');
   ?>
 
-  <?php foreach ($articulos as $articulo) : ?>
-    <article class="card">
-      <h2><?php echo $articulo->getFecha() . " " . '<a class="link"href="views/articulo.view.php?id=' . $articulo->getId() . '">' . $articulo->getTitulo() .'</a>'?> </h2>
-      <p class="temas">en <strong><?php echo '<a class="link" href="views/temas.view.php?id=' . $articulo->getFk_temas() . '"' . 'title=" $articulo->getTema();">' . $articulo->getTema() . '</a>' ?></p></strong>
-      <div class="fakeimg">
-        <?php
-          if ($articulo->getImagen() != "sin_imagen.jpg") {
-            echo '<img src="' . $articulo->getUrlGallery() . '" alt="' . $articulo->getImagen() . '"/>';
-          }
+  <?php foreach ($articulos as $articulo) : $id = $articulo->getId(); ?>
+    <tr>
+        <td><?=$articulo->getFecha()?></td>
+        <td><?=$articulo->getTitulo()?>
+            <br /><strong><i>Publicat en <?= $articulo->getTema()?></i></strong>
+        </td>
+        <td>
+        <?php 
+            $sentencia = $pdo->prepare("SELECT borrador from articulos where id = :id");
+            $sentencia->bindParam(':id', $id);
+    
+            if($sentencia->execute()){
+                $borrador = $sentencia->fetch(PDO::FETCH_ASSOC);
+                $_SESSION['borrador'] = $borrador['borrador'];
+                if ($borrador['borrador'] != 1) { ?>
+                <a href="editar.php?id=<?= $articulo->getId() ?>" class="btn btn-warning" role="button">Editar</a>
+            <?php }else{ ?>
+                <a href="editar.php?id=<?= $articulo->getId()?>" role="button"><button class="btn btn-dark">Borrador</button></a>
+            <?php  
+                }
+            }
         ?>
-      </div>
-      <p class="texto">
-        <?php
-          if ($articulo->getTexto() != "") {
-            echo $articulo->getTexto() . '<a class="link" href="views/articulo.view.php?id=' . $articulo->getId() . '"> Llegir més </a>';
-          }
-        ?>
-      </p>
-    </article>
+        <a href="eliminar.php?id=<?= $articulo->getId()?>" onclick="return confirm('Vols eliminar l`article?')" class="btn btn-danger" role="button">Eliminar</a> 
+        </td>
+        </tr>
   <?php endforeach; ?>
 <?php
 else:
   //Si no hay registros encontrados
-  echo '<article class="card">';
-  echo '<h2>No se encuentran resultados con los criterios de búsqueda.</h2>';
-  echo '</article>';
+  echo '<tr>';
+  echo '<p>No se encuentran resultados con los criterios de búsqueda.</p>';
+
 endif; ?>
