@@ -1,19 +1,48 @@
 <?php 
-  define('ruta','http://localhost/CronistaGata/'); 
+   define('ruta','http://localhost/CronistaGata/'); 
+   require_once('../database/base_de_datos.php');
+
+   $exito ="";
+   $error = "";
+  
+   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+     $_SESSION['nombre'] = $_POST['nombre'];
+     $_SESSION['email'] = $_POST['email'];
+     $_SESSION['texto'] = $_POST['texto'];
+     $_SESSION['imagenes'] = $_FILES['imagenes'];
+     
+    if (!isset($_POST['suscrito'])) {
+      $sentencia = $pdo->prepare('INSERT INTO suscriptores (id, nombre, email) VALUES (DEFAULT, :nombre, :email)'); 
+      $sentencia->bindValue(':nombre', $_POST['nombre']);
+      $sentencia->bindValue(':email', $_POST['email']);
+      $sentencia->execute();
+
+    } else {
+      $_SESSION['suscrito'] = $_POST['suscrito'];
+      $sentencia = $pdo->prepare("INSERT INTO suscriptores (id, nombre, email, suscrito) VALUES (DEFAULT, :nombre, :email, :suscrito)"); 
+      $sentencia->bindValue(':nombre', $_POST['nombre']);
+      $sentencia->bindValue(':email', $_POST['email']);
+      $sentencia->bindValue(':suscrito', $_SESSION['suscrito']);
+      $sentencia->execute();
+
+    }
+    require_once '../utils/classes/enviarMail.php';
+  } 
+  
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Cronista de Gata</title>
+  <title>Cronista de Gata - Contacte</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
   <link href="<?=ruta?>css/contact.css" rel="stylesheet" type='text/css'/>
   <link href="<?=ruta?>css/menu.css" rel="stylesheet" type='text/css'/>
   <link rel="shortcut icon" href="<?= ruta?>img/periodic1.jpg" type="image/jpg"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
 </head>
 
 <body>
@@ -22,7 +51,6 @@
   </header>
 
   <nav class="navbar navbar-expand-lg">
-    <!-- <a class="navbar-brand" href="<?=ruta?>index.php"><img class="logo" src="<?=ruta?>img/logo1.png" width="69" alt="CronistadeGata"/></a>	 -->
     <a href="javascript:history.back()" class="btn btn-default">
       <span class="glyphicon glyphicon-chevron-left"></span> Volver
     </a>
@@ -63,7 +91,7 @@
         <p>Si vols colaborar o aportar alguna informació/imatges no duptes en contactar en el Cronistadegata.</p>
         <form action="<?=$_SERVER['PHP_SELF']?>" method="POST" enctype="multipart/form-data">
         <div class="input-box">
-          <input type="text" placeholder="Nom" name="nom" required>
+          <input type="text" placeholder="Nom" name="nombre" required>
         </div>
         <div class="input-box">
           <input type="email" placeholder="Email" required name="email">
@@ -71,26 +99,22 @@
         <div class="input-box message-box">
             <textarea rows="4" cols="50" placeholder="text" name="texto"></textarea>
         </div>
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="1" name="check" required> Acepta les Condicions 
+        <div class="form-group">
+          <label for="subirimg">Puja les imatges</label>
+          <input type="file" id="imagen" name="imagenes[]" multiple> 
         </div>
-
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="1" name="suscrito"> Suscribiste al blog.
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="1" name="check" required><a href="politica.view.php"> Acepte les Condicions </a> 
+        </div>
+        <?php $resultado = isset($sentencia) ? 
+        '<div class="alert alert-success" role="alert">'.$exito.'</div>' : ""; ?>        
         <div class="button">
-          <input type="submit" value="Enviar" >
+          <input type="submit" value="Enviar" />
         </div>
       </form>
-      <?php
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-          $_SESSION['nom'] = $_POST['nom'];
-          $_SESSION['email'] = $_POST['email'];
-          
-          if (isset($_SESSION['email']) && isset($_SESSION['nom'])) {
-            # insertamos los datos en la bbdd de suscripciones / para guardar la info de quien contacta
-          }
-            
-          require_once '../utils/classes/enviarMail.php';
-        }
-      ?>
     </article>
     </section>
   </main>
@@ -98,9 +122,7 @@
   <footer class="container">
     <h4 class="text-center">© Copyright 2022-2023 <a href="../index.php"> Cronistadegata</a> | By Juanmi</h4>
   </footer>
-  <script src="<?=ruta?>js/jquery.min.js"></script>
-	<script src="<?=ruta?>js/popper.js"></script>
-	<script src="<?=ruta?>js/bootstrap.min.js"></script>
-	<script src="<?=ruta?>js/main.js"></script>
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
 </body>
 </html>

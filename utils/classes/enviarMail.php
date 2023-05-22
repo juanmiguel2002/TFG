@@ -14,17 +14,17 @@ $mail = new PHPMailer(true);
 
 try {
     //Server settings
-    // $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      // Enable verbose debug output
+    $imagenes = $_SESSION['imagenes'];
     $mail->isSMTP();                                            // Send using SMTP
     $mail->Host = 'smtp.office365.com';                       // Set the SMTP server to send through
-    //$mail->Host = gethostbyname('smtp.gmail.com');            // Si hay problemas con SMTP en IPv6
+    $mail->From = 'cronistadegata@outlook.es';   
+    $mail->CharSet = 'UTF-8';                                   //permitir envío de caracteres especiales (tildes y ñ)
     $mail->SMTPAuth= true;                                   // Enable SMTP authentication
-    $mail->Username = 'juanmi0802@gmail.com';          // SMTP username
-    $mail->Password = 'juanmivero812';                                     // SMTP password
+    $mail->Username = 'cronistadegata@outlook.es';          // SMTP username
+    $mail->Password = 'Crongata2023';                                     // SMTP password
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable implicit TLS encryption
-    //$mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            // Enable implicit SSL encryption
     $mail->Port = 587;                                    // TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
-    //$mail->Port       = 465;                                    // TCP port to connect to; use 465 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_SMTPS`
+    
     $mail->SMTPOptions = [
         'ssl' => [
             'verify_peer' => false,
@@ -33,35 +33,34 @@ try {
         ]
     ];
 
+    $nombre = isset($_SESSION['nombre'])? $_SESSION['nombre'] : "";
     //Recipients
-    $mail->setFrom('juanmi0802@gmail.com', '');                                     // Set sender (email, name)
-    $mail->addAddress($_SESSION['email'], $_SESSION['nom']);                                  // Add a recipient (email, name)
-    //$mail->addAddress('ellen@example.com');                   // Name is optional
-    //$mail->addReplyTo('', '');                                  // Set reply to (email, name)
-    //$mail->addCC('cc@example.com');
-    //$mail->addBCC('bcc@example.com');
-
-    //Attachments
-    //$mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
-    //$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
-
-    //Content
-    $mail->isHTML(true);                                  // Set email format to HTML
-    $mail->Subject = 'Colaboció o aport de '. $_SESSION['nom'];                                  // Set email subject
-    $mail->Body = $_SESSION['texto'] . '<br><strong><br>Gracias por contar amb nosaltres</strong>';   // Set email body
-    $mail->AltBody = 'Suscribete para más contenido.'; // Set alternate body in plain text for non-HTML mail clients
-
-    // $mail->send();
+    $mail->setFrom('cronistadegata@outlook.es', '');                                     // Set sender (email, name)
+    $mail->addAddress($_SESSION['email'], $_SESSION['nombre']);                                // Add a recipient (email, name)
+    $mail->addReplyTo('cronistadegata@outlook.es', '');  
+    //CONFIGURACIÓN DEL MENSAJE, EL CUERPO DEL MENSAJE
+    $mail->isHTML(true);
+    $mail->Subject = 'Colaboció o aport de '. $nombre; // Set email subject
+    //cuerpo del email
+    $mail->Body = $_SESSION['texto'] . '
+    <h3>Colaboració de '.$nombre.'</h3><footer><h3>Cronista de Gata de Gorgos</h3></footer>';   // Set email body
+    foreach ($imagenes['tmp_name'] as $index => $imagenTemporal) {//recorremos el array de imagenes para insertar las imagenes
+        if (is_uploaded_file($imagenTemporal)) {
+            $imagenNombre = $imagenes['name'][$index]; //recorremos el nombre de la imagen
+            $mail->addAttachment($imagenTemporal, $imagenNombre);//añadimos las imagens al correo electrónico
+        }
+    }
     if ($mail->Send()) {
         echo'<script type="text/javascript">
-               alert("Enviado Correctamente");
+                alert("Enviado Correctamente.");
             </script>';
-        header('../../index.php');
     } else {
         echo'<script type="text/javascript">
-               alert("NO ENVIADO, intentar de nuevo");
+                alert("NO ENVIADO, intentar de nuevo.");
             </script>';
     }
+    //$mail->SMTPDebug = SMTP::DEBUG_SERVER;                      // Enable verbose debug output
+
 } catch (Exception $e) {
     echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
 }
