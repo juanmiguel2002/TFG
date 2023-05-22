@@ -14,11 +14,11 @@ $nombreImagen = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {// nuevo articulo
 
-  $titulo = $_POST['titulo'];
-  $fk_temas = $_POST['temes'];
-  $texto = $_POST['texto'];
+  $titulo = $_POST['titulo'];//recogemos el titulo pasado por POST
+  $fk_temas = $_POST['temes'];//recogemos el fk del tema pasado por POST
+  $texto = $_POST['texto'];//recogemos el texto pasado por POST
   $borrador = $_POST['borrador'] ? $borrador = 1 : 0;//recogemos el boton de borrador.
-  // $borrador = 1;
+
   try{
     if ($_FILES['imagen']['tmp_name'] != ""){
       $imagen = new File('imagen');//llamamos a la clase File y le pasamos los datos
@@ -36,13 +36,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {// nuevo articulo
   $sentencia->bindParam(':fecha', $fecha);
   $sentencia->bindParam(':imagen', $nombreImagen);
   $sentencia->bindParam(':fk_temas', $fk_temas);
-  $sentencia->bindParam(':borrador', $borrador);
+  $sentencia->bindParam(':borrador', $borrador);// le pasamos toda la informacion del articulo
 
   if ($sentencia->execute() === false) {
     $error = "Error al insertar datos.";
   } else {
     $exito = "Datos ingresados correctamente.";
-    header('Location:' . "panelControl.php");
+    header('Location: panelControl.php');
   }
 }
 ?>
@@ -84,7 +84,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {// nuevo articulo
         <div class="card-body">
           
           <form action="<?= $_SERVER['PHP_SELF'] ?>" method="POST" enctype="multipart/form-data">
-            <!-- <input type="hidden" name="id" value="<?=""//$id ?>"> id que le pasamos para recoger en el post -->
             <div class="mb-3 row">
               <label for="Títol" class="col-sm-2 col-form-label">Títul</label>
               <div class="col-sm-10">
