@@ -9,13 +9,13 @@
 
   $temas = $_GET['id'];//recogemos el id del tema para sacar los articulos del tema pasado
 
-  $sentencia = $pdo->query("SELECT count(*) AS conteo FROM v_articulos where fk_temas = $temas");
+  $sentencia = $pdo->query("SELECT count(*) AS conteo FROM v_articulos where fk_temas = $temas"); // contamos el total de articulos del tema
   $total_registros = $sentencia->fetchObject()->conteo;
 
   $registros_por_pagina = 40; #Cuántos registros mostrar por página
   $pagina_actual = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
 
-  $paginas_a_mostrar = 10;
+  $paginas_a_mostrar = 10; #paginas a mostrar por página 
   $paginacion = new Paginacion($total_registros, $registros_por_pagina, $pagina_actual, $paginas_a_mostrar);
   $offset = $paginacion->getOffset(); # El offset es saltar X productos que viene dado por multiplicar la página - 1 * los productos por página
   
@@ -37,6 +37,7 @@
 <main class="row">
 <?php //include "paginacion.view.php";?>
   <section class="leftcolumn"> 
+  <div class="card" id="buscador"><!-- Contenedor donde se mostraran los resultados de la busqueda-->
     <?php foreach ($articulos as $articulo) :?>
     <article class="card">
         <h2><?php echo $articulo->getFecha() ." ".'<a class="link" href="articulo.view.php?id='. $articulo->getId(). '">'.$articulo->getTitulo().'</a>'?></h2>
@@ -44,7 +45,7 @@
         <div class="fakeimg">
           <?php 
             if($articulo->getImagen() !== "sin_imagen.jpg"){
-              echo '<img class="lazy" data-src="'.ruta. $articulo->getUrlGallery() .'" alt="'.$articulo->getImagen() .'"   "/>';
+              echo '<img loading="lazy" class="lazy" data-src="'.ruta. $articulo->getUrlGallery() .'" alt="'.$articulo->getImagen() .'"   "/>';
             }
           ?>
         </div>
@@ -58,5 +59,6 @@
       </article>
       <?php endforeach; 
       include "paginacion.view.php" ?>
-  </section>
+  </div>
+</section>
 <?= require_once 'partials/fin_partial.php';

@@ -62,10 +62,10 @@
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <li>
-          <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user dropdown"></span>Miguel</a>
-            <ul class="dropdown-menu">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user dropdown"></span> Miguel</a>
+            <!-- <ul class="dropdown-menu">
               <li><a href="opciones.php">Opcions</a></li>
-            </ul>
+            </ul> -->
           </li>
           <li><a href="../utils/CerrarSession.php"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
         </ul>

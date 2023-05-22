@@ -7,15 +7,15 @@
     </div>
 </div>
 <nav>
-  
+
   <ul class="pagination">
   <?php 
   $id = "";
-  $q = "";
   if (isset($temas)){
 
     $id = "&id=". $temas;
-  }?>
+  }
+  ?>
 
     <!-- Si la página actual es igual a uno, no mostramos el botón para ir una página atrás de lo contrario si lo mostramos -->
     <?php if ($pagina_actual == 1) { ?>

@@ -29,7 +29,7 @@
 
 ?>
 <main class="row">
-<section class="leftcolumn">
+<section class="leftcolumn" >
   <?php foreach ($articulos as $articulo) : ?>
     <article class="card">
         <p class="contador"> <?=$contador->obtenerVisitas($articulo->getId()). " visites"?></p> 
@@ -38,7 +38,7 @@
       <div class="fakeimg">
         <?php
             if ($articulo->getImagen() != "sin_imagen.jpg") {
-            echo '<img class="lazy img-thumbnail" data-src="'. ruta . $articulo->getUrlGallery() . '" alt="' . $articulo->getImagen() . '"/>';
+            echo '<img class="lazy" loading="lazy" data-src="'. ruta . $articulo->getUrlGallery() . '" alt="' . $articulo->getImagen() . '"/>';
             }
         ?>
       </div>

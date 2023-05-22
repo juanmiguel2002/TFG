@@ -25,11 +25,14 @@
   $rango_fin = min($rango_inicio + $paginas_a_mostrar - 1, $total_paginas);
   
   # Ahora obtenemos los productos usando ya el OFFSET y el LIMIT
-  $sentencia = $pdo->prepare("SELECT id, titulo, fecha, concat(substr(texto,1,258),'... ') as texto, fk_temas, tema, imagen FROM v_articulos order by 1 desc LIMIT ? OFFSET ?");
+  $sentencia = $pdo->prepare("SELECT id, titulo, fecha, concat(substr(texto,1,258),'... ') as texto, fk_temas, tema, imagen FROM v_articulos where borrador = 0 order by 1 desc LIMIT ? OFFSET ?");
   $sentencia->execute([$limit, $offset]);
   $articulos = $sentencia->fetchAll(PDO::FETCH_CLASS,'articulo');
 
   include_once "views/partials/inicio_partial.php";
 ?>
-    <main class="row">
-        <?php include 'views/articulos.view.php'; ?>
+<main class="row">
+
+  <?php include 'views/articulos.view.php'; ?>
+
+  

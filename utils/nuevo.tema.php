@@ -1,20 +1,33 @@
 <?php
     require_once '../database/base_de_datos.php';
-
-    $titulo = '';
+    $titulo ="";
     $exito = "";
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $titulo = $_POST['titulo'];
-        $sentencia = $pdo->prepare("INSERT INTO temas VALUES (DEFAULT, :titulo)"); 
-        $sentencia->bindParam(':titulo', $titulo);
-        if ($sentencia->execute() === false) {
-            $error = "Error al insertar datos.";
-        } else {
-            $exito = "Datos ingresados correctamente.";
-            sleep(5);
-            header('Location: temas.php'); 
+
+    if (isset($_GET['id'])) {
+        $id = $_GET['id'];
+        $sentencia = $pdo->prepare("SELECT * FROM temas WHERE id = :id"); // Utilizamos marcadores de posición en la consulta
+        $sentencia->bindParam(':id', $id);
+        $sentencia->execute();
+        $temas = $sentencia->fetchAll(PDO::FETCH_ASSOC);
+        if (!empty($temas)) {
+            $titulo = $temas[0]['tema'];
         }
-    }    
+    }
+   
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if (isset($_POST['subir'])) {
+            $sentencia = $pdo->prepare("INSERT INTO temas (tema) VALUES (:titulo)");
+            $sentencia->bindParam(':titulo', $_POST['titulo']);
+            if ($sentencia->execute()) {
+                $exito = "Datos ingresados correctamente.";
+                header('Location: temas.php');
+                exit();
+            } else {
+                $error = "Error al insertar datos.";
+            }
+        }
+    }
+
 ?>
 
 <html lang="en">

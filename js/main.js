@@ -26,9 +26,9 @@ function irArriba(){
   });
   $('.ir-abajo').click(function(){ $('body,html').animate({ scrollTop:'1000px' },1000); });
 }
- 
-  //Cargando
-  document.addEventListener("DOMContentLoaded", function() {
+
+// cargando img
+document.addEventListener("DOMContentLoaded", function() {
     var lazyImages = [].slice.call(document.querySelectorAll("img[data-src]"));
 
     if ("IntersectionObserver" in window) {
@@ -48,23 +48,3 @@ function irArriba(){
         });
     }
 });
-
-// BUSCADOR
-// $(document).on('ready', function() {
-  
-//   $('.field').on('focus', function() {
-//     $('body').addClass('is-focus');
-//   });
-  
-//   $('.field').on('blur', function() {
-//     $('body').removeClass('is-focus is-type');
-//   });
-  
-//   $('.field').on('keydown', function(event) {
-//     $('body').addClass('is-type');
-//     if((event.which === 8) && $(this).val() === '') {
-//       $('body').removeClass('is-type');
-//     }
-//   });
-  
-// });

@@ -1,5 +1,5 @@
 <?php
-
+  
   $sentencia = $pdo->prepare("SELECT * FROM temas"); //SELECCIONAMOS TODOS LOS TEMAS.
   $sentencia->execute();
   $articulos = $sentencia->fetchAll(PDO::FETCH_CLASS, 'articulo');
@@ -87,13 +87,31 @@
     </p>
     <button class="button">Aceptar</button>
   </div>
+  
   <script src="<?= ruta ?>js/main.js"></script>
   <script src="<?= ruta ?>js/cookies.js"></script>
-  <!-- <script src="js/load.js"></script> -->
   <script src="<?= ruta ?>js/popper.js"></script>
   <script src="<?= ruta ?>js/bootstrap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-
+  <script>
+		$(document).ready(function(){
+			$("#txtbusca").keyup(function(){
+				var parametros="txtbusca="+$(this).val()
+				$.ajax({
+            data:  parametros,
+            url:   '<?= ruta ?>utils/buscador.php',
+            type:  'post',
+            beforeSend: function () { },
+            success:  function (response) {                	
+                $("#buscador").html(response);
+            },
+            error:function(){
+              alert("error")
+            }
+        });
+			})
+		})
+	</script>
   </body>
 
 </html>

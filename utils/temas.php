@@ -107,10 +107,9 @@
                 <tr>
                     <td><?=$temas[$i]['id']?></td>
                     <td><?=$temas[$i]['tema']?></td>
-                    <td>
-                        <a href="editar.php?id=".<?= $temas[$i]['id']?>>Editar</a><br>
-                        <a href='#'>Eliminar</a><br>
-                    </td>
+                    <td><a href="editar.tema.php?id=<?= $temas[$i]['id']?>" class="btn btn-warning" role="button">Editar</a><br>
+                        <a href="eliminar.php?id=<?= $temas[$i]['id']?>&op=tema" onclick="return confirm('Vols eliminar el tema?')" class="btn btn-danger" role="button">Eliminar</a>
+                        </td>
                 </tr>
             <?php endfor;?>
         </tbody>
