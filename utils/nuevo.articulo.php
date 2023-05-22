@@ -12,46 +12,39 @@ $error = "";
 $texto = "";
 $nombreImagen = '';
 
-    try {
-      if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {// nuevo articulo
 
-        if ($nombreImagen != '') {
-          $tiposAceptados = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];//le pasamos los tipos aceptados que queremos subir
-          $imagen = new File('imagen', $tiposAceptados);//llamamos a la clase File y le pasamos los datos
-
-          $imagen->saveUploadFile('../upload/');// Asignamos la ruta donde se almacenará la img
-          $nombreImagen = $imagen->getFileName();//asignamos el nombre de la imagen
-          
-        }else{
-          $nombreImagen = "sin_imagen.jpg";
-        }
-        
-        $titulo = $_POST['titulo'];
-        $fk_temas = $_POST['temes'];
-        $texto = $_POST['texto'];
-        $fecha = date('Y-m-d');
-        
-        $sentencia = $pdo->prepare("INSERT INTO articulos (titulo, fecha, texto, imagen, fk_temas) VALUES (:titulo, :fecha, :texto, :imagen, :fk_temas)"); 
-        $sentencia->bindParam(':titulo', $titulo);
-        $sentencia->bindParam(':texto', $texto);
-        $sentencia->bindParam(':fecha', $fecha);
-        $sentencia->bindParam(':imagen', $nombreImagen);
-        $sentencia->bindParam(':fk_temas', $fk_temas);
-
-        //$paraneters = [':titulo' => $titulo, ':fecha' => $fecha, ':texto' => $texto, ':imagen' => $nombreImagen, ':id' => $fk_temas];
-        if ($sentencia->execute() === false) {
-            $error = "Error al insertar datos.";
-        } else {
-            $exito = "Datos ingresados correctamente.";
-            header('Location:'."panelControl.php");
-        }
-      }else {
-          $error = "Por favor ingresa todos los datos.";
-      }  
-        
-    } catch (FileException $fileException) {
-        $error = $fileException->getMessage();
+  $titulo = $_POST['titulo'];
+  $fk_temas = $_POST['temes'];
+  $texto = $_POST['texto'];
+  $borrador = $_POST['borrador'] ? $borrador = 1 : 0;//recogemos el boton de borrador.
+  // $borrador = 1;
+  try{
+    if ($_FILES['imagen']['tmp_name'] != ""){
+      $imagen = new File('imagen');//llamamos a la clase File y le pasamos los datos
+      $imagen->saveUploadFile('../upload/');// Asignamos la ruta donde se almacenará la img
+      $nombreImagen = $imagen->getFileName();
     }
+  }catch (FileException $fileException) {
+    $error = $fileException->getMessage();
+  }
+
+  $fecha = date('Y-m-d');
+  $sentencia = $pdo->prepare("INSERT INTO articulos (titulo, fecha, texto, imagen, fk_temas, borrador) VALUES (:titulo, :fecha, :texto, :imagen, :fk_temas,:borrador)");
+  $sentencia->bindParam(':titulo', $titulo);
+  $sentencia->bindParam(':texto', $texto);
+  $sentencia->bindParam(':fecha', $fecha);
+  $sentencia->bindParam(':imagen', $nombreImagen);
+  $sentencia->bindParam(':fk_temas', $fk_temas);
+  $sentencia->bindParam(':borrador', $borrador);
+
+  if ($sentencia->execute() === false) {
+    $error = "Error al insertar datos.";
+  } else {
+    $exito = "Datos ingresados correctamente.";
+    header('Location:' . "panelControl.php");
+  }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -71,6 +64,11 @@ $nombreImagen = '';
     .card {
       margin-top: 50px;
     }
+    @media (max-width: 576px) {
+      .mx-auto {
+        width: 100%;
+      }
+    }
   </style>
 </head>
 
@@ -79,21 +77,14 @@ $nombreImagen = '';
     <div class="mx-auto">
       <!-- untuk memasukkan data -->
       <div class="card">
-        
+
         <div class="card-header"><a class="btn btn-primary" href="javascript:history.back();" role="button">Atras</a>
           Editar Artícle
         </div>
         <div class="card-body">
-          <?php if ($error) : ?>
-            <div class="alert alert-danger" role="alert">
-              <?= $error ?>
-            </div>
-          <?php else : ?>
-            <div class="alert alert-success" role="alert">
-              <?= $exito ?>
-            </div>
-          <?php endif ?>
-          <form action="<?=$_SERVER['PHP_SELF']?>" method="POST" enctype="multipart/form-data">
+          
+          <form action="<?= $_SERVER['PHP_SELF'] ?>" method="POST" enctype="multipart/form-data">
+            <!-- <input type="hidden" name="id" value="<?=""//$id ?>"> id que le pasamos para recoger en el post -->
             <div class="mb-3 row">
               <label for="Títol" class="col-sm-2 col-form-label">Títul</label>
               <div class="col-sm-10">
@@ -101,25 +92,25 @@ $nombreImagen = '';
               </div>
             </div>
             <div class="mb-3 row">
-                <label for="temas" class="col-sm-2 col-form-label">Temas</label>
-                <div class="col-sm-10">
-                    <select class="form-control" name="temes" id="temes">
-                        <option value="">- Selecciona -</option>
-                        <?php
-                        $sentencia = $pdo->query("SELECT * FROM temas");
-                        $sentencia->execute();
-                        $temas = $sentencia->fetchAll(PDO::FETCH_CLASS, 'articulo');
-                        foreach ($temas as $tema) :
-                        ?>
-                            <option value="<?= $tema->getId() ?>" <?php if ($temes == $tema->getTema()) echo "selected" ?>><?= $tema->getTema() ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
+              <label for="temas" class="col-sm-2 col-form-label">Temas</label>
+              <div class="col-sm-10">
+                <select class="form-control" name="temes" id="temes">
+                  <option value="">- Selecciona -</option>
+                  <?php
+                  $sentencia = $pdo->query("SELECT * FROM temas");
+                  $sentencia->execute();
+                  $temas = $sentencia->fetchAll(PDO::FETCH_CLASS, 'articulo');
+                  foreach ($temas as $tema) :
+                  ?>
+                    <option value="<?= $tema->getId() ?>" <?php if ($temes == $tema->getId()) echo "selected" ?>><?= $tema->getTema() ?></option>
+                  <?php endforeach; ?>
+                </select>
+              </div>
             </div>
             <div class="mb-3 row">
               <label for="imagen" class="col-sm-2 col-form-label">Imatge</label>
               <div class="col-sm-10">
-                <input type="file" class="form-control" id="imagen" name="imagen" value="<?= $nombreImagen ?>">
+                <input type="file" class="form-control" name="imagen" value="<?= $nombreImagen ?>">
               </div>
             </div>
             <div class="mb-3 row">
@@ -130,13 +121,14 @@ $nombreImagen = '';
             </div>
 
             <div class="col-12">
-            <a class="btn btn-primary" href="javascript:history.back();" role="button">Atras</a>
+              <a class="btn btn-primary" href="javascript:history.back();" role="button">Atras</a>
               <input type="submit" name="subir" value="Publicar" class="btn btn-success" />
+              <input type="submit" name="borrador" value="Borrador" class="btn btn-secondary" />
             </div>
           </form>
         </div>
-        </div>
       </div>
+    </div>
     </div>
 </body>
 
@@ -168,7 +160,7 @@ $nombreImagen = '';
 
         const reader = new FileReader();
         reader.addEventListener('load', () => {
-          
+
           const id = 'blobid' + (new Date()).getTime();
           const blobCache = tinymce.activeEditor.editorUpload.blobCache;
           const base64 = reader.result.split(',')[1];
