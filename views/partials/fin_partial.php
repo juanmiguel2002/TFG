@@ -55,6 +55,9 @@
         <a title="Instagram" href="https://www.instagram.com/cronistagata/" target="_blank">
           <img src="<?= ruta ?>img/instagram.png" class="foto" alt="Instagram" />
         </a>
+        <a title="Belen" href="<?= ruta?>BelenMonument/index.html" target="_blank">
+          <img src="<?= ruta ?>img/belen2.png" class="foto" alt="Belen" />
+        </a>
       </div>
     </article>
 
