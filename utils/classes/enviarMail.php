@@ -36,14 +36,14 @@ try {
     $nombre = isset($_SESSION['nombre'])? $_SESSION['nombre'] : "";
     //Recipients
     $mail->setFrom('cronistadegata@outlook.es', '');                                     // Set sender (email, name)
-    $mail->addAddress($_SESSION['email'], $_SESSION['nombre']);                                // Add a recipient (email, name)
-    $mail->addReplyTo('cronistadegata@outlook.es', '');  
+    $mail->addAddress('cronistadegata@outlook.es', $_SESSION['nombre']);                                // Add a recipient (email, name)
+    $mail->addReplyTo($_SESSION['email'], '');  
     //CONFIGURACIÓN DEL MENSAJE, EL CUERPO DEL MENSAJE
     $mail->isHTML(true);
     $mail->Subject = 'Colaboció o aport de '. $nombre; // Set email subject
     //cuerpo del email
     $mail->Body = $_SESSION['texto'] . '
-    <h3>Colaboració de '.$nombre.'</h3><footer><h3>Cronista de Gata de Gorgos</h3></footer>';   // Set email body
+    <h3>Colaboració de '.$nombre.'con email: '.$_SESSION['email'].'</h3><footer><h3>Cronista de Gata de Gorgos</h3></footer>';   // Set email body
     foreach ($imagenes['tmp_name'] as $index => $imagenTemporal) {//recorremos el array de imagenes para insertar las imagenes
         if (is_uploaded_file($imagenTemporal)) {
             $imagenNombre = $imagenes['name'][$index]; //recorremos el nombre de la imagen
