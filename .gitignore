@@ -1,9 +1,5 @@
-upload/asus.jpg
-upload/20230514181505_asus.jpg
-js/load.js
-upload/cartell truc festes 2023.jpg
-upload/20230514181523_asus.jpg
-utils/classes/enviarMail.php
+BelenMonument/js/main.js
+utils/classes/enviarEmail.php
 BelenMonument/index.html
 BelenMonument/politica.html
 BelenMonument/css/style.css
@@ -16,4 +12,5 @@ BelenMonument/img/6.jpg
 BelenMonument/img/7.jpg
 BelenMonument/img/8.jpg
 BelenMonument/img/tot.jpg
-BelenMonument/js/main.js
+
+upload/cartell truc festes 2023.jpg
