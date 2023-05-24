@@ -40,6 +40,7 @@ h4 {
 
 .link{
   text-decoration: none;
+  color: var(--colorSecundario);
 }
 
 /* Header/Blog Title */
@@ -367,25 +368,51 @@ ul {
 .card .stat-detail {
   font-size: 1.2em;
 }
-/* .stat {
-	padding:15px 5px;
-	background:#336699;
-	text-align: center;
-	float:left;
+
+/* ESTILOS DE LA PAGINACIÓN */
+.centrar {
+  display: flex;
+  justify-content: center;
 }
-.stat-count {
-	font-size: 51px;
-	font-weight: normal;
-	letter-spacing: -0.02em;
-	line-height: 1.2;
-	margin-bottom: 20px;
-	overflow:hidden;
-	font-family:"Georgia", Courier, monospace;
-	padding: 0;
-	position: relative;
+
+.centro {
+  text-align: center;
 }
-.stat-detail {
-	color:#fff;
-	padding-top: 10px;
-	font: italic 1.3rem/1.75 "Georgia", Courier, monospace;
-} */
+
+.pagination {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+}
+
+.pagination li {
+  display: inline;
+}
+
+.pagination li a {
+  color: #333;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color 0.3s;
+  border: 2px solid #ddd;
+}
+
+.pagination li.active a {
+  background-color: var(--colorPrimario);
+  color: white;
+  border: 2px solid var(--colorPrimario);
+}
+
+.pagination li a:hover:not(.active) {
+  background-color: #ddd;
+}
+
+.pagination li:first-child a {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.pagination li:last-child a {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
