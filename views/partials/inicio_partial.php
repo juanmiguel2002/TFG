@@ -34,13 +34,12 @@
         <li class="nav-item"><a href="<?=ruta?>views/contacto.view.php" class="nav-link">Contacte</a></li>
         <li class="nav-item"><a href="<?=ruta?>views/login.view.php" class="nav-link">Admin</a></li>
       </ul>
-      <div class="searchform order-lg-last">
+      <div class="searchform order-lg-last ">
         <div class="form-group d-flex">
           <input type="text" class="form-control pl-3" name="txtbusca" id="txtbusca" placeholder="Buscar" >
            <button type="submit" placeholder="" class="form-control search"><span class="fa fa-search"></span></button>
         </div>
       </div>
-      
     </div>
   </nav>
 <!-- boton hacia arriba -->
@@ -50,5 +49,5 @@
       <i class="fa fa-arrow-up fa-stack-1x fa-inverse"></i>
     </span>
   </a>
-  <script src="<?= ruta ?>js/jquery.min.js"></script>
+  
 </nav>

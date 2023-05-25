@@ -1,5 +1,5 @@
 <!-- VISTA DE TODOS LOS ARTICULOS DE LA BASE DE DATOS -->
-
+<?php include "paginacion.view.php"; ?>
 <section class="leftcolumn" id="buscador"><!-- Contenedor donde se mostraran los resultados de la busqueda -->
   
   <?php foreach ($articulos as $articulo) : ?>

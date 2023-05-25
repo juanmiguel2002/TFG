@@ -8,7 +8,7 @@
     $sentencia = $pdo->query("SELECT count(*) AS conteo FROM articulos");
     $total_registros = $sentencia->fetchObject()->conteo;
 
-    $registros_por_pagina = 40; #Cuántos registros mostrar por página
+    $registros_por_pagina = 20; #Cuántos registros mostrar por página
     $pagina_actual = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
 
     $paginas_a_mostrar = 10;
@@ -28,6 +28,8 @@
     $articulos = $sentencia->fetchAll(PDO::FETCH_CLASS,'articulo');
 
 ?>
+<?php 
+  include "paginacion.view.php"; ?>
 <main class="row">
 <section class="leftcolumn" >
   <?php foreach ($articulos as $articulo) : ?>

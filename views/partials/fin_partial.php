@@ -63,13 +63,19 @@
 
     <article class="card">
       <h3>El temps</h3><br>
-      <div id="tiempo_dbe0547377eb129ef65e90b1154bcfb4">
-        <div></div>
-        <div>
-          <img src="//www.tiempo.es/build/img/logo/tiempo133.png" width="50" height="18" alt="tiempo.es">
-        </div>
-        <script type="text/javascript" src="//www.tiempo.es/widload/ca/ver/280/339/111/es0al0068/dbe0547377eb129ef65e90b1154bcfb4.js"></script>
+      <div id="tiempo_6aae8437b0103b7be87c917a107db610"> 
+          <div></div>
+        <div> 
+          <img src="//www.tiempo.es/build/img/logo/tiempo133.png" width="80" height="18" alt="tiempo.es"> 
+        </div> 
+          <script type="text/javascript" src="//www.tiempo.es/widload/es/ver/288/339/110/es0al0068/6aae8437b0103b7be87c917a107db610.js"></script> 
       </div>
+      
+    </article>
+    <article class="card">
+      <h3>Colaboradors</h3><br>
+      
+      
     </article>
   </section>
 
@@ -90,7 +96,7 @@
     </p>
     <button class="button">Aceptar</button>
   </div>
-  
+  <script src="<?= ruta ?>js/jquery.min.js"></script>
   <script src="<?= ruta ?>js/main.js"></script>
   <script src="<?= ruta ?>js/cookies.js"></script>
   <script src="<?= ruta ?>js/popper.js"></script>

@@ -9,7 +9,7 @@
   $sentencia = $pdo->query("SELECT count(*) AS conteo FROM articulos");
   $total_registros = $sentencia->fetchObject()->conteo;
 
-  $registros_por_pagina = 40; #Cuántos registros mostrar por página
+  $registros_por_pagina = 35; #Cuántos registros mostrar por página
   $pagina_actual = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
 
   $paginas_a_mostrar = 10;
