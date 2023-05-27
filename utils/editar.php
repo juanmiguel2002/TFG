@@ -1,5 +1,5 @@
 <?php
-  // define('ruta', 'http://localhost/CronistaGata/');
+
 
   require_once '../database/base_de_datos.php';
   require_once 'classes/articulo.php';
@@ -23,10 +23,10 @@
       $titulo = $_POST['titulo'];
       $texto = $_POST['texto'];
 
-      if (isset($_SESSION['borrador'])) {
+      if (isset($_SESSION['borrador'])) { //comprobamos si el borrador existe 
         $borrador = 0;
       }
-      $sentencia = $pdo->prepare("UPDATE v_articulos set titulo = '$titulo', texto='$texto', borrador = '$borrador' where id = '$id'");
+      $sentencia = $pdo->prepare("UPDATE v_articulos set titulo = '$titulo', texto = '$texto', borrador = '$borrador' where id = '$id'");
       $sentencia->execute();
     
       if ($sentencia) {
