@@ -6,32 +6,35 @@
    $error = "";
   
    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-     $_SESSION['nombre'] = $_POST['nombre'];
-     $_SESSION['email'] = $_POST['email'];
-     $_SESSION['texto'] = $_POST['texto'];
-     $_SESSION['imagenes'] = $_FILES['imagenes'];
+      $_SESSION['nombre'] = $_POST['nombre'];
+      $_SESSION['email'] = $_POST['email'];
+      $_SESSION['texto'] = $_POST['texto'];
+      $_SESSION['imagenes'] = $_FILES['imagenes'];
      
-    if (!isset($_POST['suscrito'])) {
+    if (!isset($_POST['suscrito'])) {// comprobamos si no existe el checkbox de suscrito
       $sentencia = $pdo->prepare('INSERT INTO suscriptores (id, nombre, email) VALUES (DEFAULT, :nombre, :email)'); 
       $sentencia->bindValue(':nombre', $_POST['nombre']);
       $sentencia->bindValue(':email', $_POST['email']);
       $sentencia->execute();
 
-    } else {
+    } else {// si existe el suscrito se inserta en la tabla de suscriptores con suscrito = 1
       $_SESSION['suscrito'] = $_POST['suscrito'];
       $sentencia = $pdo->prepare("INSERT INTO suscriptores (id, nombre, email, suscrito) VALUES (DEFAULT, :nombre, :email, :suscrito)"); 
       $sentencia->bindValue(':nombre', $_POST['nombre']);
       $sentencia->bindValue(':email', $_POST['email']);
       $sentencia->bindValue(':suscrito', $_SESSION['suscrito']);
       $sentencia->execute();
-
-    }
-    require_once '../utils/classes/enviarMail.php';
-  } 
+      
+    } 
+    $sentencia = $pdo->prepare("SELECT id FROM suscriptores order by id desc");//seleccionamos el id de la tabla suscriptores 
+    $sentencia->execute();
+    $id = $sentencia->fetch(PDO::FETCH_OBJ)->id;
+    $_SESSION['id'] = $id;
   
+    require('../utils/classes/enviarEmail.php');
+  } 
 ?>
 
-<!DOCTYPE html>
 <html>
 <head>
   <title>Cronista de Gata - Contacte</title>
@@ -51,7 +54,7 @@
   </header>
 
   <nav class="navbar navbar-expand-lg">
-    <a href="javascript:history.back()" class="btn btn-default">
+    <a href="javascript:history.back();" class="btn btn-default">
       <span class="glyphicon glyphicon-chevron-left"></span> Volver
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
@@ -60,7 +63,7 @@
     </button>
     <div class="collapse navbar-collapse" id="ftco-nav">
       <ul class="navbar-nav">
-        <li class="nav-item active"><a href="<?=ruta?>index.php" class="nav-link">Home</a></li>
+        <li class="nav-item active"><a href="<?= ruta?>index.php" class="nav-link">Home</a></li>
       </ul>                            
     </div>
   </nav>
@@ -90,31 +93,31 @@
         <div class="topic-text">Envian's un Correu</div>
         <p>Si vols colaborar o aportar alguna informació/imatges no duptes en contactar en el Cronistadegata.</p>
         <form action="<?=$_SERVER['PHP_SELF']?>" method="POST" enctype="multipart/form-data">
-        <div class="input-box">
-          <input type="text" placeholder="Nom" name="nombre" required>
-        </div>
-        <div class="input-box">
-          <input type="email" placeholder="Email" required name="email">
-        </div>
-        <div class="input-box message-box">
-            <textarea rows="4" cols="50" placeholder="text" name="texto"></textarea>
-        </div>
-        <div class="form-group">
-          <label for="subirimg">Puja les imatges</label>
-          <input type="file" id="imagen" name="imagenes[]" multiple> 
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="1" name="suscrito"> Suscribiste al blog.
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="1" name="check" required><a href="politica.view.php"> Acepte les Condicions </a> 
-        </div>
-        <?php $resultado = isset($sentencia) ? 
-        '<div class="alert alert-success" role="alert">'.$exito.'</div>' : ""; ?>        
-        <div class="button">
-          <input type="submit" value="Enviar" />
-        </div>
-      </form>
+          <div class="input-box">
+            <input type="text" placeholder="Nom" name="nombre" required>
+          </div>
+          <div class="input-box">
+            <input type="email" placeholder="Email" required name="email">
+          </div>
+          <div class="input-box message-box">
+              <textarea rows="4" cols="50" placeholder="text" name="texto"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="subirimg">Puja les imatges</label>
+            <input type="file" id="imagen" name="imagenes[]" multiple> 
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="1" name="suscrito"> Suscribiste al blog.
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="1" name="check" required><a href="politica.view.php"> Acepte les Condicions </a> 
+          </div>
+          <?php $resultado = isset($sentencia) ? 
+          '<div class="alert alert-success" role="alert">'. $exito.'</div>' : ""; ?>        
+          <div class="button">
+            <input type="submit" value="Enviar" />
+          </div>
+        </form>
     </article>
     </section>
   </main>
