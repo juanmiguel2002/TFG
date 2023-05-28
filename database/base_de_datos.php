@@ -1,6 +1,6 @@
 <?php
     // Configuración de la conexión a la base de datos
-    $dsn = "mysql:host=localhost;dbname=cron;charset=utf8mb4";
+    $dsn = "mysql:host=localhost;dbname=cronistadegata;charset=utf8mb4";
     $usuario = "cronista";
     $contraseña = "1234";
 
