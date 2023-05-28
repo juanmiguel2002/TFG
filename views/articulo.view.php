@@ -1,6 +1,6 @@
 <!--VISTA DE LOS ARTICULOS QUE PASAMOS EL ID DEL ARTICULO SELECCIONADO-->
 <?php
- //define('ruta', 'http://localhost/CronistaGata/');
+ 
   require_once 'partials/inicio_partial.php';
   require_once "../database/base_de_datos.php";
   require_once '../utils/classes/articulo.php';
