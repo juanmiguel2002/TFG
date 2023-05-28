@@ -5,25 +5,18 @@
     $tema = "";
     $exito = "";
     $error ="";
+    $id = $_GET['id'];
+    $sentencia = $pdo->prepare("SELECT * FROM temas WHERE id = :id");
+    $sentencia->bindParam(':id', $id);
+    $sentencia->execute();
+    $temas = $sentencia->fetchAll(PDO::FETCH_ASSOC);
+    $tema = $temas[0]['tema'];
 
-    if (isset($_GET['eliminar'])) {
-        $id = $_POST['id'];
-        $sentencia = $pdo->prepare("DELETE FROM temas WHERE id = :id");
-        $sentencia->bindParam(':id', $id);
+    if (isset($_POST['subir'])) {
+        $tema = $_POST['tema'];
 
-        if ($sentencia->execute()) {
-            $exito = "Tema eliminado correctamente.";
-            // Redirigir a la página de temas o mostrar un mensaje de éxito
-            header('Location: temas.php');
-            exit();
-        } else {
-            $error = "Error al eliminar el tema.";
-        }
-    } else {
-        $titulo = $_POST['titulo'];
-
-        $sentencia = $pdo->prepare("UPDATE temas SET tema = :titulo WHERE id = :id");
-        $sentencia->bindParam(':titulo', $titulo);
+        $sentencia = $pdo->prepare("UPDATE temas SET tema = :tema WHERE id = :id");
+        $sentencia->bindParam(':tema', $tema);
         $sentencia->bindParam(':id', $id);
 
         if ($sentencia->execute()) {
@@ -32,6 +25,8 @@
         } else {
             $error = "Error al actualizar el tema.";
         }
+    } else {
+        $error = "Error al actualizar el tema.";
     }
 ?>
 
@@ -40,7 +35,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nou Artícle</title>
+    <title>Editar Tema</title>
+    <!-- Icono del navegador -->
+    <link rel="shortcut icon" href="../img/periodic1.jpg" type="image/jpg"/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
     <style>
         .mx-auto {

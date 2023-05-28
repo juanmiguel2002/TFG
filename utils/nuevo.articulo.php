@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {// nuevo articulo
     $error = $fileException->getMessage();
   }
 
-  $fecha = date('Y-m-d');
+  $fecha = date('Y-m-d');//ponemos la fecha que se a insertado el articuilo
   $sentencia = $pdo->prepare("INSERT INTO articulos (titulo, fecha, texto, imagen, fk_temas, borrador) VALUES (:titulo, :fecha, :texto, :imagen, :fk_temas,:borrador)");
   $sentencia->bindParam(':titulo', $titulo);
   $sentencia->bindParam(':texto', $texto);
@@ -54,6 +54,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {// nuevo articulo
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Editar Article</title>
+  <!-- Icono del navegador -->
+  <link rel="shortcut icon" href="<?=ruta?>img/periodic1.jpg" type="image/jpg"/>
   <link href="../css/panelc.css" rel="stylesheet" type='text/css' />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
   <style>
@@ -75,10 +77,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {// nuevo articulo
 <body>
   <header>
     <div class="mx-auto">
-      <!-- untuk memasukkan data -->
       <div class="card">
-
-        <div class="card-header"><a class="btn btn-primary" href="javascript:history.back();" role="button">Atras</a>
+        <div class="card-header">
+          <a class="btn btn-primary" href="javascript:history.back();" role="button">Atras</a>
           Editar Artícle
         </div>
         <div class="card-body">
@@ -96,10 +97,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {// nuevo articulo
                 <select class="form-control" name="temes" id="temes">
                   <option value="">- Selecciona -</option>
                   <?php
-                  $sentencia = $pdo->query("SELECT * FROM temas");
-                  $sentencia->execute();
-                  $temas = $sentencia->fetchAll(PDO::FETCH_CLASS, 'articulo');
-                  foreach ($temas as $tema) :
+                    $sentencia = $pdo->query("SELECT * FROM temas");
+                    $sentencia->execute();
+                    $temas = $sentencia->fetchAll(PDO::FETCH_CLASS, 'articulo');
+                    foreach ($temas as $tema) :
                   ?>
                     <option value="<?= $tema->getId() ?>" <?php if ($temes == $tema->getId()) echo "selected" ?>><?= $tema->getTema() ?></option>
                   <?php endforeach; ?>
@@ -137,7 +138,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {// nuevo articulo
   tinymce.init({
     selector: 'textarea#texto',
     plugins: 'image code',
-    toolbar: 'undo redo | link image | code',
+    toolbar: 'undo redo | blocks | ' +
+  'bold italic backcolor | alignleft aligncenter ' +
+  'alignright alignjustify | bullist numlist outdent indent | ' +
+  'removeformat | help',
     /* enable title field in the Image dialog*/
     image_title: true,
     /* enable automatic uploads of images represented by blob or data URIs*/
