@@ -24,6 +24,8 @@ $formulas = array(
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Administració</title>
+    <!-- Icono del navegador -->
+    <link rel="shortcut icon" href="../img/periodic1.jpg" type="image/jpg"/>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700&display=swap" rel="stylesheet">
@@ -84,7 +86,7 @@ $formulas = array(
                 $('#mensaje').text("Por favor, rellena todos los campos.");
             } else if (pwd.length < 8) { //comprobamos la longitud de la contraseña
                 $('#mensaje').text("Contraseña no tiene 8 caracteres");
-            } else if ((email != email_admin) || (pwd != pwd_admin)) {
+            } else if ((email != email_admin) || (pwd != pwd_admin)) {//comprobamos la contraseña y el email
                 $('#mensaje').text("Email o contraseña no coinciden");
             } else {
                 $('#form').submit();
