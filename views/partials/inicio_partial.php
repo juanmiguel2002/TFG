@@ -13,7 +13,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-  <!-- Icono del menu -->
+  <!-- Icono del navegador -->
   <link rel="shortcut icon" href="<?=ruta?>img/periodic1.jpg" type="image/jpg"/>
 
 </head>
