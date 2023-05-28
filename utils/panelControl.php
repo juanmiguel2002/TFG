@@ -63,27 +63,20 @@
         <ul class="nav navbar-nav navbar-right">
           <li>
           <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user dropdown"></span> Miguel</a>
-            <!-- <ul class="dropdown-menu">
-              <li><a href="opciones.php">Opcions</a></li>
-            </ul> -->
+            <ul class="dropdown-menu">  <!--AMPLIACION-->
+              <li><a href="suscriptores.php">Suscriptores</a></li>
+            </ul>
           </li>
-          <li><a href="../utils/CerrarSession.php"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+          <li><a href="CerrarSession.php"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
         </ul>
       </div>
     </nav>
-    <!-- BOTON HACIA ARRIBA -->
-    <a class="ir-arriba" javascript:void(0) title="Volver arriba">
-      <span class="fa-stack">
-        <i class="fa fa-circle fa-stack-2x"></i>
-        <i class="fa fa-arrow-up fa-stack-1x fa-inverse"></i>
-      </span>
-    </a>
   </header>
+
   <!-- CONTENEDOR DONDE SE MOSTRARAN TODOS LOS ARTICULOS -->
   <div class="container">
     <div class="form-inline">
-       <input class="form-control mr-sm-2" type="text" name="txtbusca" id="txtbusca" placeholder="Buscar">
-     <!-- <button class="btn btn-outline-success my-2 my-sm-0">Buscar</button> -->
+      <input class="form-control mr-sm-2" type="text" name="txtbusca" id="txtbusca" placeholder="Buscar">
     </div> 
     
     <table class="table table-responsive">
@@ -111,7 +104,7 @@
               if($sentencia->execute()){
                 $borrador = $sentencia->fetch(PDO::FETCH_ASSOC);
                 $_SESSION['borrador'] = $borrador['borrador'];
-                if ($borrador['borrador'] != 1) { ?>
+                if ($borrador['borrador'] != 1) { ?><!--Comprobamos si es diferente a 1 si es mostramos el boton de editar si no mostramos el boton como que esta en estado borrador-->
                   <a href="editar.php?id=<?= $articulo->getId() ?>" class="btn btn-warning" role="button">Editar</a>
                 <?php }else{ ?>
                   <a href="editar.php?id=<?= $articulo->getId()?>" role="button"><button class="btn btn-dark">Borrador</button></a>
