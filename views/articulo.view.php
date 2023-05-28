@@ -38,7 +38,7 @@
         <a href="<?= ruta .$articulo->getUrlGallery()?>" target="_blank">
           <?php 
             if($articulo->getImagen() !== "sin_imagen.jpg"){
-              echo '<img src="'. ruta.$articulo->getUrlGallery() .'" alt="'.$articulo->getImagen() .'"/>';
+              echo '<img src="'. ruta.$articulo->getUrlGallery() .'" alt="'.$articulo->getImagen() .'" whith="70%"/>';
             }
           ?>
         </a>
