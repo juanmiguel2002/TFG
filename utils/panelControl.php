@@ -1,5 +1,8 @@
 <?php
   define('ruta', 'http://localhost/CronistaGata/');
+  header('Cache-Control: no cache'); //no cache
+  session_cache_limiter('private_no_expire'); // works
+  
   session_start();
   if (((isset($_POST['usuario'])  && $_POST['usuario'] != "") && ($_POST['password'] != "" && isset($_POST['password'])))) {
     $_SESSION['user'] = $_POST['usuario'];

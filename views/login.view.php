@@ -1,5 +1,6 @@
 <?php
-//define('ruta', 'http://localhost/CronistaGata/');
+//define('ruta', 'http://localhost/CronistaGata/')
+
 //abres una session
 session_start();
 // función para hacer el saludo cordial.
