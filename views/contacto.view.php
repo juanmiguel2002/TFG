@@ -12,7 +12,7 @@
       $_SESSION['imagenes'] = $_FILES['imagenes'];
       $fecha = date('Y-m-d');
     if (!isset($_POST['suscrito'])) {// comprobamos si no existe el checkbox de suscrito
-      $sentencia = $pdo->prepare('INSERT INTO suscriptores (id, nombre, email,fecha) VALUES (DEFAULT, :nombre, :email,:fecha)'); 
+      $sentencia = $pdo->prepare('INSERT INTO suscriptores (id, nombre, email,fecha) VALUES (DEFAULT, :nombre, :email, :fecha)'); 
       $sentencia->bindValue(':nombre', $_POST['nombre']);
       $sentencia->bindValue(':email', $_POST['email']);
       $sentencia->bindValue(':fecha', $fecha);
