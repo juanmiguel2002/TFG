@@ -35,9 +35,8 @@
 ?>
 
 <main class="row">
-<?php //include "paginacion.view.php";?>
-  <section class="leftcolumn"> 
-  <div class="card" id="buscador"><!-- Contenedor donde se mostraran los resultados de la busqueda-->
+<?php include "paginacion.view.php";?>
+  <section class="leftcolumn"id="buscador"> <!-- Contenedor donde se mostraran los resultados de la busqueda-->
     <?php foreach ($articulos as $articulo) :?>
     <article class="card">
         <h2><?php echo $articulo->getFecha() ." ".'<a class="link" href="articulo.view.php?id='. $articulo->getId(). '">'.$articulo->getTitulo().'</a>'?></h2>
@@ -59,6 +58,5 @@
       </article>
       <?php endforeach; 
       include "paginacion.view.php" ?>
-  </div>
 </section>
 <?= require_once 'partials/fin_partial.php';
