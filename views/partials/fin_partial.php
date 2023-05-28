@@ -12,9 +12,9 @@
 
   <section class="rightcolumn">
     <article class="card">
-      <h2>Qui soc?</h2>
+      <h2><a href="views/about.php">Qui soc?</a></h2>
       <div>
-        <img src="<?= ruta ?>img/portada.jpg" alt="portada" class="imagen" />
+        <a href="<?=ruta ?>views/about.php"><img src="<?= ruta ?>img/portada.jpg" alt="portada" class="imagen" /></a>
       </div>
       <cite>Estimant el nostre poble i a la nostra gent</cite>
     </article>
