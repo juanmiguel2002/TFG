@@ -55,15 +55,13 @@
               <span class="glyphicon glyphicon-chevron-left"></span> Volver
             </a></li>
           <li><a href="nuevo.tema.php">Escriu nou</a></li> <!-- Podemos crear otro tema a partir de este link-->
-          <li><a href="#">Temes</a></li>
         </ul>
         
         <ul class="nav navbar-nav navbar-right">
           <li>
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user dropdown"></span>Miguel</a>
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user dropdown"></span> Miguel</a>
             <ul class="dropdown-menu">
-              <li><a href="#">Conter</a></li>
-              <li><a href="#">Opcions</a></li>
+              <li><a href="suscriptores.php">Suscriptores</a></li>
             </ul>
           </li>
           <li><a href="CerrarSession.php"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
@@ -107,9 +105,10 @@
                 <tr>
                     <td><?=$temas[$i]['id']?></td>
                     <td><?=$temas[$i]['tema']?></td>
-                    <td><a href="editar.tema.php?id=<?= $temas[$i]['id']?>" class="btn btn-warning" role="button">Editar</a><br>
-                        <a href="eliminar.php?id=<?= $temas[$i]['id']?>&op=tema" onclick="return confirm('Vols eliminar el tema?')" class="btn btn-danger" role="button">Eliminar</a>
-                        </td>
+                    <td>
+                      <a href="editar.tema.php?id=<?= $temas[$i]['id']?>" class="btn btn-warning" role="button">Editar</a><br>
+                      <a href="eliminar.php?id=<?= $temas[$i]['id']?>&op=tema" onclick="return confirm('Vols eliminar el tema?')" class="btn btn-danger" role="button">Eliminar</a>
+                    </td>
                 </tr>
             <?php endfor;?>
         </tbody>

@@ -10,19 +10,22 @@
       $_SESSION['email'] = $_POST['email'];
       $_SESSION['texto'] = $_POST['texto'];
       $_SESSION['imagenes'] = $_FILES['imagenes'];
-     
+      $fecha = date('Y-m-d');
     if (!isset($_POST['suscrito'])) {// comprobamos si no existe el checkbox de suscrito
-      $sentencia = $pdo->prepare('INSERT INTO suscriptores (id, nombre, email) VALUES (DEFAULT, :nombre, :email)'); 
+      $sentencia = $pdo->prepare('INSERT INTO suscriptores (id, nombre, email,fecha) VALUES (DEFAULT, :nombre, :email,:fecha)'); 
       $sentencia->bindValue(':nombre', $_POST['nombre']);
       $sentencia->bindValue(':email', $_POST['email']);
+      $sentencia->bindValue(':fecha', $fecha);
       $sentencia->execute();
 
     } else {// si existe el suscrito se inserta en la tabla de suscriptores con suscrito = 1
+      
       $_SESSION['suscrito'] = $_POST['suscrito'];
-      $sentencia = $pdo->prepare("INSERT INTO suscriptores (id, nombre, email, suscrito) VALUES (DEFAULT, :nombre, :email, :suscrito)"); 
+      $sentencia = $pdo->prepare("INSERT INTO suscriptores (id, nombre, email, suscrito, fecha) VALUES (DEFAULT, :nombre, :email, :suscrito,:fecha)");  
       $sentencia->bindValue(':nombre', $_POST['nombre']);
       $sentencia->bindValue(':email', $_POST['email']);
       $sentencia->bindValue(':suscrito', $_SESSION['suscrito']);
+      $sentencia->bindValue(':fecha', $fecha);
       $sentencia->execute();
       
     } 
