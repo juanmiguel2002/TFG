@@ -13,7 +13,6 @@
 
 * {
   box-sizing: border-box;
-  overflow: hidden;
 }
 
 body { 
@@ -230,6 +229,9 @@ footer a {
     padding: 0;
     height: auto;
   }
+  /* body{
+    overflow: hidden;
+  } */
 }
  
 /***PROPIEDADES DEL MENÚ***/
