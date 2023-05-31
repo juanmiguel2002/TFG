@@ -76,7 +76,7 @@
                 <h2>Miguel Vives Signes</h2>
                 <h4>Cronista de Gata de Gorgos</h4><br>
                 <p>Soy Miguel Vives Signes, cronista oficial de Gata de Gorgos (Alicante) desde 2007. 
-                    Con esta remodelación de la pàgina, del blog, pretendo aportar la història, costumbres, tradición y noticias del pueblo de la Marina Alta donde nàcí y vivo. </p>
+                    Con esta remodelación de la pàgina, del blog, pretendo aportar la història, costumbres, tradición y noticias del pueblo de la Marina Alta donde nací y vivo. </p>
                 
                 <p>La página va dirigida a todos los vecinos, forasteros residentes, nuevos, visitantes y curiosos de las redes, 
                     para que puedan seguir los testimonios más directos de lo que un día fue y lo que hoy es Gata.</p>
