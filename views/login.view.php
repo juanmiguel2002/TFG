@@ -1,27 +1,27 @@
 <?php
-//define('ruta', 'http://localhost/CronistaGata/')
+    //define('ruta', 'http://localhost/CronistaGata/')
 
-//abres una session
-session_start();
-// función para hacer el saludo cordial.
-function buenosque($formulas)
-{
-    $hora = date("H");
+    //abres una session
+    session_start();
+    
+    // función para hacer el saludo cordial.
+    function buenosque($formulas)
+    {
+        $hora = date("H");
 
-    foreach ($formulas as $formula) {
-        if ($hora > $formula[0] && $hora < $formula[1]) return $formula[2];
+        foreach ($formulas as $formula) {
+            if ($hora > $formula[0] && $hora < $formula[1]) return $formula[2];
+        }
     }
-}
-$formulas = array(
-    array(-1, 7, "Bona nit"),
-    array(6, 15, "Bon dia"),
-    array(14, 21, "Bona tarda"),
-    array(20, 24, "Bona nit")
-);
+    $formulas = array(
+        array(-1, 7, "Bona nit"),
+        array(6, 15, "Bon dia"),
+        array(14, 21, "Bona tarda"),
+        array(20, 24, "Bona nit")
+    );
 ?>
 
 <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Administració</title>
@@ -65,13 +65,12 @@ $formulas = array(
     var pwd_admin;
     //función que lee los usuarios para acceder al sitio.
     async function leerUsuarios() {
-        const response = await fetch("../json/user_admin.json");//duta donde estan las claves para entrar.
+        const response = await fetch("../json/user_admin.json");//ruta donde estan las claves para entrar.
         datos = await response.json();
 
         email_admin = datos.user;
         pwd_admin = datos.pwd;
     }
-    
     leerUsuarios();
 
     //validación por parte del cliente.

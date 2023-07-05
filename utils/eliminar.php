@@ -3,10 +3,10 @@
     
     $id = $_GET['id'];
 
-    $sentencia = $pdo->prepare("SELECT COUNT(*) as total FROM articulos"); // hacemos un count para contar el máximo de artículos 
-    $sentencia->execute();
-    $resultado = $sentencia->fetch(PDO::FETCH_ASSOC);
-    $total = $resultado['total'];
+    // $sentencia = $pdo->prepare("SELECT COUNT(*) as total FROM articulos"); // hacemos un count para contar el máximo de artículos 
+    // $sentencia->execute();
+    // $resultado = $sentencia->fetch(PDO::FETCH_ASSOC);
+    // $total = $resultado['total'];
   
     if (!isset($_GET['op'])) {
         $sentencia = $pdo->prepare("DELETE FROM articulos WHERE id = :id");  
