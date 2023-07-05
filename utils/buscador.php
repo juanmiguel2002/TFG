@@ -25,7 +25,7 @@ if(isset($_POST['txtbusca'])):
   $rango_fin = min($rango_inicio + $paginas_a_mostrar - 1, $total_paginas);
   
   $sql = "SELECT id, titulo, fecha, concat(substr(texto,1,258),'... ') as texto, fk_temas, tema, imagen 
-  FROM v_articulos WHERE titulo like '%".$_POST['txtbusca']."%' and borrador = 0 order by 1 desc LIMIT ? OFFSET ?";
+  FROM v_articulos WHERE titulo like '%".$_POST['txtbusca']."%' and borrador = 0 order by 1 desc  LIMIT ? OFFSET ?";
   $sentencia = $pdo->prepare($sql);
   $sentencia->execute([$limit, $offset]);
   if ($sentencia !== false)
@@ -53,9 +53,8 @@ if(isset($_POST['txtbusca'])):
     </article>
   <?php endforeach; ?>
 <?php
-else:
-  //Si no hay registros encontrados
-  echo '<article class="card">';
-  echo '<h2>No se encuentran resultados con los criterios de búsqueda.</h2>';
-  echo '</article>';
-endif; ?>
+else:?>
+  <article class="card">
+  <h2>No se encuentran resultados con los criterios de búsqueda.</h2>
+  </article>
+<?php endif; ?>
